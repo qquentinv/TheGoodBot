@@ -13,9 +13,12 @@ Ce projet a pour but de créer un bot discord qui a les fonctionnalités suivant
 
 - [Bot discord](#bot-discord)
   - [Pré-requis](#pr--requis)
-    - [Installation](#installation)
-    - [Installer les dépendances](#installer-les-d-pendances)
+    - [Logiciel](#logiciel)
+    - [Dépendances](#d-pendances)
   - [Lancer le projet](#lancer-le-projet)
+    - [Docker](#docker)
+    - [NodeJS](#nodejs)
+  - [Réglages](#r-glages)
 
 ## Pré-requis
 
@@ -45,3 +48,12 @@ Il suffit de lancer le conteneur docker à l'aide de la commande suivante :
 Il suffit de lancer la commande suivante avec l'environnement de chargé :
 
 > npm start
+
+## Réglages
+
+Le bot nécessite des configurations sur la [plateforme de développement de discord](https://discord.com/developers/applications).
+C'est notamment ici que se passe la création de l'application, la modification du nom, de l'image et la génération du token.
+
+## Ressources
+
+- [Discord.js](https://discordjs.guide/)

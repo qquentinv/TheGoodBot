@@ -1,0 +1,9 @@
+services:
+  discord-bot:
+    container_name: discord-bot
+    build: ./
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - "8080:8080"
