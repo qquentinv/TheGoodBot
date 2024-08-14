@@ -8,9 +8,6 @@ Ce projet a pour but de créer un bot discord qui a les fonctionnalités suivant
 - Lancer des reminders quand les personnes n'ont pas stream depuis un certain temps
 - Crée un word à partir d'un channel grâce à la commande !word
 
-[![pipeline status](https://gitlab.com/HuuwQ/discord-channel-to-word-bot/badges/main/pipeline.svg)](https://gitlab.com/HuuwQ/discord-channel-to-word-bot/-/commits/main)
-[![Latest Release](https://gitlab.com/HuuwQ/discord-channel-to-word-bot/-/badges/release.svg)](https://gitlab.com/HuuwQ/discord-channel-to-word-bot/-/releases)
-
 - [Bot discord](#bot-discord)
   - [Pré-requis](#pr--requis)
     - [Logiciel](#logiciel)
