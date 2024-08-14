@@ -20,8 +20,18 @@ client.on("ready", () => console.log("Discord bot is connected"));
 client.on("messageCreate", async (msg) => {
   // check if command === "!word"
   if (msg.author.bot) return;
-  if (msg.content.toLowerCase() !== "!word") return;
+  if (msg.content.toLowerCase() === "!word") {
+    await createWordFile(msg);
+  } else if (msg.content.toLowerCase() === "!reminder") {
+    reminderTwitch();
+  }
+});
 
+function reminderTwitch() {
+  console.log("reminder twitch");
+}
+
+async function createWordFile(msg) {
   console.log("start to generating word file");
   // send channel waiting message
   const response = await msg.channel.send("Generating word file...");
@@ -66,6 +76,6 @@ client.on("messageCreate", async (msg) => {
     files: [{ attachment: buffer, name: "word.docx" }],
   });
   console.log("generating word file is OK");
-});
+}
 
 client.login(token);
