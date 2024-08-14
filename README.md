@@ -1,22 +1,24 @@
 # Bot discord
 
+## Sommaire
+
+- [Bot discord](#bot-discord)
+  - [Description](#description)
+  - [Pré-requis](#pré-requis)
+    - [Logiciel](#logiciel)
+    - [Dépendances](#dépendances)
+  - [Lancer le projet](#lancer-le-projet)
+    - [Docker](#docker)
+    - [NodeJS](#nodejs)
+  - [Réglages](#réglages)
+
 ## Description
 
-Ce projet a pour but de créer un bot discord qui a les fonctionnalités suivantes: 
+Ce projet a pour but de créer un bot discord qui a les fonctionnalités suivantes:
 
 - Lancer des alertes de stream twitch
 - Lancer des reminders quand les personnes n'ont pas stream depuis un certain temps
 - Crée un word à partir d'un channel grâce à la commande !word
-
-## Sommaire
-- [Bot discord](#bot-discord)
-  - [Pré-requis](#pr--requis)
-    - [Logiciel](#logiciel)
-    - [Dépendances](#d-pendances)
-  - [Lancer le projet](#lancer-le-projet)
-    - [Docker](#docker)
-    - [NodeJS](#nodejs)
-  - [Réglages](#r-glages)
 
 ## Pré-requis
 
@@ -24,7 +26,7 @@ Ce projet a pour but de créer un bot discord qui a les fonctionnalités suivant
 
 - Installer docker & docker compose
 
-OU 
+OU
 
 - Installer nodejs
 - Installer npm
@@ -37,12 +39,14 @@ Pour lancer le projet, il faut installer les dépendances :
 
 ## Lancer le projet
 
-### Docker 
-Il suffit de lancer le conteneur docker à l'aide de la commande suivante : 
+### Docker
+
+Il suffit de lancer le conteneur docker à l'aide de la commande suivante :
 
 > docker compose up --build -d
 
 ### NodeJS
+
 Il suffit de lancer la commande suivante avec l'environnement de chargé :
 
 > npm start
