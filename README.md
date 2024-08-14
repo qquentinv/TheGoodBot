@@ -8,6 +8,7 @@ Ce projet a pour but de créer un bot discord qui a les fonctionnalités suivant
 - Lancer des reminders quand les personnes n'ont pas stream depuis un certain temps
 - Crée un word à partir d'un channel grâce à la commande !word
 
+## Sommaire
 - [Bot discord](#bot-discord)
   - [Pré-requis](#pr--requis)
     - [Logiciel](#logiciel)
