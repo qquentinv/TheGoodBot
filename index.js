@@ -1,6 +1,7 @@
 const { Client, GatewayIntentBits } = require("discord.js");
 const dotenv = require("dotenv");
 const docx = require("docx");
+const bot = require('./bot.js')
 
 dotenv.config();
 
@@ -14,7 +15,10 @@ const client = new Client({
 const token = process.env.TOKEN;
 
 // listener on bot ready
-client.on("ready", () => console.log("Discord bot is connected"));
+client.on("ready", () => {
+  console.log("Discord bot is connected");
+  bot.startBot(client);
+});
 
 // listener on message
 client.on("messageCreate", async (msg) => {
