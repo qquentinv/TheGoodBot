@@ -8,8 +8,6 @@
     - [Logiciel](#logiciel)
     - [Dépendances](#dépendances)
   - [Lancer le projet](#lancer-le-projet)
-    - [Docker](#docker)
-    - [NodeJS](#nodejs)
   - [Réglages](#réglages)
 
 ## Description
@@ -24,10 +22,6 @@ Ce projet a pour but de créer un bot discord qui a les fonctionnalités suivant
 
 ### Logiciel
 
-- Installer docker & docker compose
-
-OU
-
 - Installer nodejs
 - Installer npm
 
@@ -38,14 +32,6 @@ Pour lancer le projet, il faut installer les dépendances :
 - npm i
 
 ## Lancer le projet
-
-### Docker
-
-Il suffit de lancer le conteneur docker à l'aide de la commande suivante :
-
-> docker compose up --build -d
-
-### NodeJS
 
 Il suffit de lancer la commande suivante avec l'environnement de chargé :
 
