@@ -1,0 +1,8 @@
+{
+  "discordToken": "YOUR_DISCORD_BOT_TOKEN",
+  "twitchClientId": "YOUR_TWITCH_CLIENT_ID",
+  "twitchClientSecret": "YOUR_TWITCH_CLIENT_SECRET",
+  "streamChannelName": "stream",
+  "streamers": ["streamer1", "streamer2"],
+  "reminderIntervalDays": 7
+}
