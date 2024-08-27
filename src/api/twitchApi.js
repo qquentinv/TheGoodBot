@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { notifyStreamStart } = require("./utils");
+const { notifyStreamStart } = require("./../messages/launchStream");
 const { twitchClientId, twitchClientSecret } = require("./../../config.json");
 
 async function getTwitchAccessToken() {
