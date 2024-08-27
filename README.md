@@ -7,8 +7,11 @@
   - [Pré-requis](#pré-requis)
     - [Logiciel](#logiciel)
     - [Dépendances](#dépendances)
+  - [Configuration](#configuration)
+  -
   - [Lancer le projet](#lancer-le-projet)
   - [Réglages](#réglages)
+  - [Déploiement](#déploiement)
 
 ## Description
 
@@ -29,7 +32,12 @@ Ce projet a pour but de créer un bot discord qui a les fonctionnalités suivant
 
 Pour lancer le projet, il faut installer les dépendances :
 
-- npm i
+> npm i
+
+## Configuration
+
+Pour configurer le bot sur votre serveur discord, il vous faudra dupliquer le fichier `config-template.json` et le renommer en `config.json`.
+Ensuite il vous faudra remplacer les valeurs de chaque variable avec les votres.
 
 ## Lancer le projet
 
@@ -45,3 +53,27 @@ C'est notamment ici que se passe la création de l'application, la modification 
 ## Ressources
 
 - [Discord.js](https://discordjs.guide/)
+
+## Déploiement
+
+Ce bot peut être déployé sur un VPS ou encore un raspberry.
+Pour cela, j'utilise le package `pm2`. il permet de lancer des applications node en tant que service unix.
+On peut le lancer grâce à la commande :
+
+> pm2 start index.js
+
+On peut consulter les différentes applications en cours de lancement grâce à la commande :
+
+> pm2 status
+
+On peut aussi relancer facilement le serveur grâce à la commande :
+
+> pm2 restart index.js
+
+On a même accès à un tableau de bord qui contient notamment les statistiques de performance et les logs avec la commande :
+
+> pm2 dash
+
+Pour terminer, on peut arrêter le bot grâce à la commande :
+
+> pm2 stop index.js
