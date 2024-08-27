@@ -74,6 +74,10 @@ On a même accès à un tableau de bord qui contient notamment les statistiques 
 
 > pm2 dash
 
+Pour obtenir seulement les logs, utiliser :
+
+> pm2 log
+
 Pour terminer, on peut arrêter le bot grâce à la commande :
 
 > pm2 stop index.js
