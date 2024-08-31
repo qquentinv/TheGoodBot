@@ -5,7 +5,7 @@ function notifyStreamStart(client, streamer, streamChannelName) {
   );
   if (channel) {
     channel.send(
-      `🚀 @everyone ${streamer} vient de commencer un stream! Regardez-le ici: https://www.twitch.tv/${streamer}`
+      `🚀 @everyone ${streamer.replace('_', '\\_')} vient de commencer un stream! Regardez-le ici: https://www.twitch.tv/${streamer}`
     );
   }
 }
