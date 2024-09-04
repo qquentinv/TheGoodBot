@@ -1,6 +1,6 @@
-const docx = require("docx");
+import docx from "docx";
 
-async function createWordFile(msg) {
+export async function createWordFile(msg) {
   console.log("start to generating word file");
   // send channel waiting message
   const response = await msg.channel.send("Generating word file...");
@@ -46,7 +46,3 @@ async function createWordFile(msg) {
   });
   console.log("generating word file is OK");
 }
-
-module.exports = {
-  createWordFile,
-};

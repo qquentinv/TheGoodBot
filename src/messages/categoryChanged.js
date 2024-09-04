@@ -1,4 +1,4 @@
-function notifyCategoryChanged(client, streamer, streamChannelName, streamStatus) {
+export function notifyCategoryChanged(client, streamer, streamChannelName, streamStatus) {
     console.log(`notification de live pour ${streamer} : category changed`);
     const channel = client.channels.cache.find(
       (ch) => ch.name === streamChannelName
@@ -9,8 +9,3 @@ function notifyCategoryChanged(client, streamer, streamChannelName, streamStatus
       );
     }
   }
-  
-  module.exports = {
-    notifyCategoryChanged,
-  };
-  

@@ -1,15 +1,15 @@
-const { streamChannelName, streamers } = require("./../../config.json");
-const { checkStreams } = require("../api/twitchApi");
-const { checkForReminders } = require("./reminder");
+import config from "../../config.json" with { type: "json" };
+import { checkForReminders } from "./reminder.js"
+import { checkStreams } from "../api/twitchApi.js"
 
 let streamStatus = {};
 let lastStreamTimestamps = {};
 
-async function startBot(client) {
+export async function startBot(client) {
   setInterval(() => {
     checkStreams(
       client,
-      streamers,
+      config.streamers,
       streamStatus,
       streamChannelName,
       lastStreamTimestamps
@@ -17,7 +17,3 @@ async function startBot(client) {
     checkForReminders(client, streamers, lastStreamTimestamps);
   }, 120000); // Check toutes les deux minutes
 }
-
-module.exports = {
-  startBot,
-};
