@@ -1,7 +1,7 @@
 const { Client, GatewayIntentBits } = require("discord.js");
-const bot = require("./src/services/bot.js");
-const { createWordFile } = require("./src/services/generateDocx.js");
-const { discordToken } = require("./config.json");
+const bot = require("./services/bot.js");
+const { createWordFile } = require("./services/generateDocx.js");
+const { discordToken } = require("../config.json");
 
 const client = new Client({
   intents: [
