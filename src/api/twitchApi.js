@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { notifyStreamStart } = require("./../messages/launchStream");
+const { notifyCategoryChanged } = require("./../messages/categoryChanged")
 const { twitchClientId, twitchClientSecret } = require("./../../config.json");
 
 async function getTwitchAccessToken() {
@@ -38,7 +39,14 @@ async function checkStreams(
       lastStreamTimestamps[streamer] = Date.now();
       if (!streamStatus[streamer]) {
         streamStatus[streamer] = true;
-        notifyStreamStart(client, streamer, streamChannelName);
+        streamStatus[`${streamer}_category`] = streamData["game_name"]
+        notifyStreamStart(client, streamer, streamChannelName, streamStatus);
+      }
+      else{
+        if(streamData["game_name"] != streamStatus[`${streamer}_category`]){
+          streamStatus[`${streamer}_category`] = streamData["game_name"]
+          notifyCategoryChanged(client, streamer, streamChannelName, streamStatus);
+        }
       }
     } else {
       if (streamStatus[streamer]) {
