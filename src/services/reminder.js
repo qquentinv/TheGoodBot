@@ -1,11 +1,14 @@
 import config from "./../../config.json" with { type: "json" };
 import { sendReminder } from "./../messages/reminderStream.js";
+import { getStreamers } from "./database.js";
 const msInADay = 24 * 60 * 60 * 1000;
 
-export async function checkForReminders(client, streamers, lastStreamTimestamps) {
+export async function checkForReminders(client, lastStreamTimestamps) {
   const now = Date.now();
 
-  for (const streamer of streamers) {
+  const streamers = getStreamers();
+  for (const streamerObj of streamers) {
+    const streamer = streamerObj.name;
     const lastStreamTime = lastStreamTimestamps[streamer];
 
     if (

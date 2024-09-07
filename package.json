@@ -9,8 +9,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "debug": "nodemon",
+    "start": "node --experimental-sqlite src/index.js",
+    "debug": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -19,5 +19,8 @@
     "axios": "^1.7.5",
     "discord.js": "^14.15.0",
     "docx": "^7.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
