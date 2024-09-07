@@ -26,7 +26,7 @@ export async function checkStreams(
   for (const streamer of streamers) {
     const response = await axios.get("https://api.twitch.tv/helix/streams", {
       headers: {
-        "Client-ID": twitchClientId,
+        "Client-ID": config.twitchClientId,
         Authorization: `Bearer ${accessToken}`,
       },
       params: {

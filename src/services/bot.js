@@ -11,9 +11,9 @@ export async function startBot(client) {
       client,
       config.streamers,
       streamStatus,
-      streamChannelName,
+      config.streamChannelName,
       lastStreamTimestamps
     );
-    checkForReminders(client, streamers, lastStreamTimestamps);
+    checkForReminders(client, config.streamers, lastStreamTimestamps);
   }, 120000); // Check toutes les deux minutes
 }
