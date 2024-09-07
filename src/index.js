@@ -20,7 +20,6 @@ client.on("ready", () => {
 
 // listener on message
 client.on("messageCreate", async (msg) => {
-	console.log("msg");
   handleMessage(client, msg);
 });
 

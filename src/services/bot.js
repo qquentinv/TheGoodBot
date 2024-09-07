@@ -2,24 +2,11 @@ import config from "../../config.json" with { type: "json" };
 import { checkForReminders } from "./reminder.js";
 import { checkStreams } from "../api/twitchApi.js";
 import { createWordFile } from "./generateDocx.js";
-import {
-  addStreamer,
-  getStreamer,
-  getStreamers,
-  isStreamerExist,
-  removeStreamer,
-} from "./database.js";
-import {
-  alreadyExistAddStreamer,
-  lastStream,
-  listRegisteredStreamer,
-  notExistStreamer,
-} from "../messages/streamers.js";
-import {
-  successfullyAddStreamer,
-  successfullyRemoveStreamer,
-} from "../messages/streamers.js";
-import { seeUsage, wrongUsage } from "../messages/utils.js";
+import { seeUsage } from "../messages/utils.js";
+import { addCommand } from "../commands/add.js";
+import { deleteCommand } from "../commands/delete.js";
+import { laststreamCommand } from "../commands/laststream.js";
+import { streamersCommand } from "../commands/streamers.js";
 
 let streamStatus = {};
 let lastStreamTimestamps = {};
@@ -33,7 +20,7 @@ export async function startBot(client) {
       lastStreamTimestamps,
     );
     checkForReminders(client, lastStreamTimestamps);
-  }, 12000); // Check toutes les deux minutes
+  }, 120000); // Check toutes les deux minutes
 }
 
 export async function handleMessage(client, msg) {
@@ -44,44 +31,16 @@ export async function handleMessage(client, msg) {
       await createWordFile(msg);
       break;
     case "!streamers":
-      let streamers = getStreamers();
-      listRegisteredStreamer(client, streamers);
+      streamersCommand(client);
       break;
     case "!add":
-      if (stdin.length == 1) {
-        wrongUsage(client, stdin[0]);
-        return;
-      }
-      if (!isStreamerExist(stdin[1])) {
-        addStreamer(stdin[1]);
-        successfullyAddStreamer(client, stdin[1]);
-      } else {
-        alreadyExistAddStreamer(client, stdin[1]);
-      }
+      addCommand(client, stdin);
       break;
     case "!delete":
-      if (stdin.length == 1) {
-        wrongUsage(client, stdin[0]);
-        return;
-      }
-      if (isStreamerExist(stdin[1])) {
-        removeStreamer(stdin[1]);
-        successfullyRemoveStreamer(client, stdin[1]);
-      } else {
-        notExistStreamer(client, stdin[1]);
-      }
+      deleteCommand(client, stdin);
       break;
     case "!laststream":
-      if (stdin.length == 1) {
-        wrongUsage(client, stdin[0]);
-        return;
-      }
-      if (isStreamerExist(stdin[1])) {
-        let streamer = getStreamer(stdin[1]);
-        lastStream(client, streamer.name, streamer.last_stream);
-      } else {
-        notExistStreamer(client, stdin[1]);
-      }
+      laststreamCommand(client, stdin);
       break;
     case "!help":
       seeUsage(client);
