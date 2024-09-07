@@ -1,8 +1,8 @@
-const { reminderIntervalDays } = require("./../../config.json");
-const { sendReminder } = require("./../messages/reminderStream");
+import config from "./../../config.json" with { type: "json" };
+import { sendReminder } from "./../messages/reminderStream.js";
 const msInADay = 24 * 60 * 60 * 1000;
 
-async function checkForReminders(client, streamers, lastStreamTimestamps) {
+export async function checkForReminders(client, streamers, lastStreamTimestamps) {
   const now = Date.now();
 
   for (const streamer of streamers) {
@@ -10,14 +10,10 @@ async function checkForReminders(client, streamers, lastStreamTimestamps) {
 
     if (
       lastStreamTime &&
-      now - lastStreamTime > reminderIntervalDays * msInADay
+      now - lastStreamTime > config.reminderIntervalDays * msInADay
     ) {
       sendReminder(client, streamer);
       lastStreamTimestamps[streamer] = now;
     }
   }
 }
-
-module.exports = {
-  checkForReminders,
-};

@@ -1,4 +1,4 @@
-function notifyStreamStart(client, streamer, streamChannelName, streamStatus) {
+export function notifyStreamStart(client, streamer, streamChannelName, streamStatus) {
   console.log(`notification de live pour ${streamer} : stream started`);
   const channel = client.channels.cache.find(
     (ch) => ch.name === streamChannelName
@@ -9,7 +9,3 @@ function notifyStreamStart(client, streamer, streamChannelName, streamStatus) {
     );
   }
 }
-
-module.exports = {
-  notifyStreamStart,
-};

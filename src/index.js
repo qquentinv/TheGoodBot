@@ -1,7 +1,7 @@
-const { Client, GatewayIntentBits } = require("discord.js");
-const bot = require("./src/services/bot.js");
-const { createWordFile } = require("./src/services/generateDocx.js");
-const { discordToken } = require("./config.json");
+import { Client, GatewayIntentBits } from "discord.js";
+import { startBot } from "./services/bot.js";
+import { createWordFile } from "./services/generateDocx.js";
+import config from "../config.json" with { type: "json" };
 
 const client = new Client({
   intents: [
@@ -14,7 +14,7 @@ const client = new Client({
 // listener on bot ready
 client.on("ready", () => {
   console.log("Discord bot is connected");
-  bot.startBot(client);
+  startBot(client);
 });
 
 // listener on message
@@ -26,4 +26,4 @@ client.on("messageCreate", async (msg) => {
   }
 });
 
-client.login(discordToken);
+client.login(config.discordToken);

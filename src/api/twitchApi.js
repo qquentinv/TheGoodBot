@@ -1,20 +1,20 @@
-const axios = require("axios");
-const { notifyStreamStart } = require("./../messages/launchStream");
-const { notifyCategoryChanged } = require("./../messages/categoryChanged")
-const { twitchClientId, twitchClientSecret } = require("./../../config.json");
+import axios from "axios";
+import { notifyStreamStart } from "./../messages/launchStream.js";
+import { notifyCategoryChanged } from "./../messages/categoryChanged.js";
+import config from "./../../config.json" with { type: "json" };
 
 async function getTwitchAccessToken() {
   const response = await axios.post("https://id.twitch.tv/oauth2/token", null, {
     params: {
-      client_id: twitchClientId,
-      client_secret: twitchClientSecret,
+      client_id: config.twitchClientId,
+      client_secret: config.twitchClientSecret,
       grant_type: "client_credentials",
     },
   });
   return response.data.access_token;
 }
 
-async function checkStreams(
+export async function checkStreams(
   client,
   streamers,
   streamStatus,
@@ -55,7 +55,3 @@ async function checkStreams(
     }
   }
 }
-
-module.exports = {
-  checkStreams,
-};

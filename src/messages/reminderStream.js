@@ -1,4 +1,4 @@
-function sendReminder(client, streamer) {
+export function sendReminder(client, streamer) {
   console.log(`reminder de dernier live pour ${streamer}`);
   const channel = client.channels.cache.find(
     (ch) => ch.name === streamChannelName
@@ -9,7 +9,3 @@ function sendReminder(client, streamer) {
     );
   }
 }
-
-module.exports = {
-  sendReminder,
-};
