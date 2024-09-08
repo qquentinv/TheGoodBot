@@ -20,7 +20,7 @@ export async function startBot(client) {
       lastStreamTimestamps,
     );
     checkForReminders(client, lastStreamTimestamps);
-  }, 120000); // Check toutes les deux minutes
+  }, config.twitchRefreshTime);
 }
 
 export async function handleMessage(client, msg) {
