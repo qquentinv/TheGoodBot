@@ -1,4 +1,4 @@
-import { escapeUnderscore } from "./utils";
+import { escapeUnderscore } from "./utils.js";
 
 export function notifyStreamStart(client, streamer, streamChannelName, streamStatus) {
   console.log(`notification de live pour ${streamer} : stream started`);

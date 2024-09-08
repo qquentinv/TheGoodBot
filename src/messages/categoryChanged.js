@@ -1,4 +1,4 @@
-import { escapeUnderscore } from "./utils";
+import { escapeUnderscore } from "./utils.js";
 
 export function notifyCategoryChanged(client, streamer, streamChannelName, streamStatus) {
     console.log(`notification de live pour ${streamer} : category changed`);

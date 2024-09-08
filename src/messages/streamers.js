@@ -1,5 +1,5 @@
 import config from "../../config.json" with { type: "json" };
-import { escapeUnderscore } from "./utils";
+import { escapeUnderscore } from "./utils.js";
 
 export function listRegisteredStreamer(client, listStreamers) {
   console.log(`list all streamers`);

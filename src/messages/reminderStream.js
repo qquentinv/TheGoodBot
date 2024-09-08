@@ -1,4 +1,4 @@
-import { escapeUnderscore } from "./utils";
+import { escapeUnderscore } from "./utils.js";
 
 export function sendReminder(client, streamer) {
   console.log(`reminder de dernier live pour ${streamer}`);
