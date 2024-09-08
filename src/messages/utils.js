@@ -17,13 +17,13 @@ export function seeUsage(client) {
   );
   if (channel) {
     channel.send(`
-      💻 Liste des commandes disponibles :
-      * \`!help\` - Voir l'ensemble des commandes.
-      * \`!streamers\` - Voir tous les streams suivies.
-      * \`!add <STREAMER>\` - Ajouter un stream à suivre.
-      * \`!delete <STREAMER>\` - Supprimer un stream suivie.
-      * \`!laststream <STREAMER>\` - Date du dernier stream.
-    `);
+💻 Liste des commandes disponibles :
+* \`!help\` - Voir l'ensemble des commandes.
+* \`!streamers\` - Voir tous les streams suivies.
+* \`!add <STREAMER>\` - Ajouter un stream à suivre.
+* \`!delete <STREAMER>\` - Supprimer un stream suivie.
+* \`!laststream <STREAMER>\` - Date du dernier stream.
+`);
   }
 }
 
