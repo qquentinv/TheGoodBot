@@ -8,11 +8,13 @@
   - [Pré-requis](#pré-requis)
     - [Logiciel](#logiciel)
     - [Dépendances](#dépendances)
+    - [Base de données](#base-de-données)
   - [Configuration](#configuration)
   - [Lancer le projet](#lancer-le-projet)
   - [Réglages](#réglages)
   - [Développement](développement)
   - [Déploiement](#déploiement)
+  - [Ressources](#ressources)
 
 ## Description
 
@@ -84,10 +86,6 @@ Pour développer TheGoodBot, nous utilisons `nodemon`, il se lance à l'aide de 
 
 Note : nous utilisons `node:sqlite` ainsi que l'import de `JSON modules` qui sont des fonctionnalités expérimentales de Node et qui peuvent changer à tout moment.
 
-## Ressources
-
-- [Discord.js](https://discordjs.guide/)
-
 ## Déploiement
 
 Ce bot peut être déployé sur un VPS ou encore un raspberry.
@@ -115,3 +113,7 @@ Pour obtenir seulement les logs, utiliser :
 Pour terminer, on peut arrêter le bot grâce à la commande :
 
 > pm2 stop "TheGoodBot"
+
+## Ressources
+
+- [Discord.js](https://discordjs.guide/)
