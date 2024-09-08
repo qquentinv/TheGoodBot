@@ -9,19 +9,27 @@ import assert from "node:assert";
  * @returns {Promise<string>}
  */
 async function getTwitchAccessToken() {
-  const accessTokenUrl = new URL("https://id.twitch.tv/oauth2/token");
-  accessTokenUrl.searchParams.set("client_id", config.twitchClientId)
-  accessTokenUrl.searchParams.set("client_secret", config.twitchClientId)
-  accessTokenUrl.searchParams.set("grant_type", config.client_credentials)
+  const authUrl = new URL("https://id.twitch.tv/oauth2/token");
 
-  const request = await fetch(accessTokenUrl.toString(), {
+  const rawResponse = await fetch(authUrl.toString(), {
     method: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(
+      {
+        client_id: config.twitchClientId, 
+        client_secret: config.twitchClientSecret, 
+        grant_type:  "client_credentials"
+      }
+    )
   });
 
-  const response = await request.json();
-  assert.ok(response.data.access_token);
+  const responseData = await rawResponse.json();
+  assert.ok(responseData.access_token);
 
-  return response.data.access_token;
+  return responseData.access_token;
 }
 
 /**
@@ -29,20 +37,20 @@ async function getTwitchAccessToken() {
  * @param {string} accessToken
  */
 async function getStreamsOf(username, accessToken) {
-  const accessTokenUrl = new URL("https://api.twitch.tv/helix/streams");
-  accessTokenUrl.searchParams.set("user_login", username);
+  const twitchApiUrl = new URL("https://api.twitch.tv/helix/streams");
+  twitchApiUrl.searchParams.set("user_login", username);
 
   const headers = new Headers({
     "Client-ID": config.twitchClientId,
     Authorization: `Bearer ${accessToken}`,
   });
-  const request = await fetch(accessTokenUrl.toString(), {
-    method: "POST",
+  const rawResponse = await fetch(twitchApiUrl.toString(), {
+    method: "GET",
     headers,
   });
 
-  const response = await request.json();
-  assert.ok(response.data.access_token);
+  const response = await rawResponse.json();
+  assert.ok(response.data);
   assert.equal(Array.isArray(response.data), true);
 
   return response.data;
@@ -61,8 +69,10 @@ export async function checkStreams(
     const streamer = streamerObj.name;
     let streams = null;
     try {
-      streams = await getStreamsOf(streamer);
-    } catch { }
+      streams = await getStreamsOf(streamer, accessToken);
+    } catch { 
+      console.log(`Erreur lors de la récupération des données du streamer ${streamer}`);  
+    }
 
     const streamData = streams?.[0];
     if (streamData) {
