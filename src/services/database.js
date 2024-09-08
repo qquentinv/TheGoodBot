@@ -2,16 +2,6 @@ import config from "../../config.json" with { type: "json" };
 import { DatabaseSync } from "node:sqlite";
 export const database = new DatabaseSync(config.databasePath);
 
-export function initializeDatabase() {
-  // only creating a 'streamers' table for now
-  // it will only be used by us so...
-  database.exec(`
-CREATE TABLE IF NOT EXISTS 'streamers' (
-	name VARCHAR(255) PRIMARY KEY,
-	last_stream DATE
-);
-	`);
-}
 
 export function getStreamers() {
   const query = database.prepare(`SELECT * FROM streamers;`);
