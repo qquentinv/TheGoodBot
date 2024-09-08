@@ -78,7 +78,7 @@ Ce bot peut être déployé sur un VPS ou encore un raspberry.
 Pour cela, j'utilise le package `pm2`. il permet de lancer des applications node en tant que service unix.
 On peut le lancer grâce à la commande :
 
-> pm2 start index.js
+> pm2 start npm --name "TheGoodBot" -- start
 
 On peut consulter les différentes applications en cours de lancement grâce à la commande :
 
@@ -86,7 +86,7 @@ On peut consulter les différentes applications en cours de lancement grâce à 
 
 On peut aussi relancer facilement le serveur grâce à la commande :
 
-> pm2 restart index.js
+> pm2 restart "TheGoodBot"
 
 On a même accès à un tableau de bord qui contient notamment les statistiques de performance et les logs avec la commande :
 
@@ -98,4 +98,4 @@ Pour obtenir seulement les logs, utiliser :
 
 Pour terminer, on peut arrêter le bot grâce à la commande :
 
-> pm2 stop index.js
+> pm2 stop "TheGoodBot"
