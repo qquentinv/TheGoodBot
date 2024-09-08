@@ -1,18 +1,51 @@
-import axios from "axios";
-import { notifyStreamStart } from "./../messages/launchStream.js";
-import { notifyCategoryChanged } from "./../messages/categoryChanged.js";
-import config from "./../../config.json" with { type: "json" };
 import { getStreamers, updateLastStream } from "../services/database.js";
+import config from "./../../config.json" with { type: "json" };
+import { notifyCategoryChanged } from "./../messages/categoryChanged.js";
+import { notifyStreamStart } from "./../messages/launchStream.js";
 
+import assert from "node:assert";
+
+/**
+ * @returns {Promise<string>}
+ */
 async function getTwitchAccessToken() {
-  const response = await axios.post("https://id.twitch.tv/oauth2/token", null, {
-    params: {
-      client_id: config.twitchClientId,
-      client_secret: config.twitchClientSecret,
-      grant_type: "client_credentials",
-    },
+  const accessTokenUrl = new URL("https://id.twitch.tv/oauth2/token");
+  accessTokenUrl.searchParams.set("client_id", config.twitchClientId)
+  accessTokenUrl.searchParams.set("client_secret", config.twitchClientId)
+  accessTokenUrl.searchParams.set("grant_type", config.client_credentials)
+
+  const request = await fetch(accessTokenUrl.toString(), {
+    method: "POST",
   });
+
+  const response = await request.json();
+  assert.ok(response.data.access_token);
+
   return response.data.access_token;
+}
+
+/**
+ * @param {string} username
+ * @param {string} accessToken
+ */
+async function getStreamsOf(username, accessToken) {
+  const accessTokenUrl = new URL("https://api.twitch.tv/helix/streams");
+  accessTokenUrl.searchParams.set("user_login", username);
+
+  const headers = new Headers({
+    "Client-ID": config.twitchClientId,
+    Authorization: `Bearer ${accessToken}`,
+  });
+  const request = await fetch(accessTokenUrl.toString(), {
+    method: "POST",
+    headers,
+  });
+
+  const response = await request.json();
+  assert.ok(response.data.access_token);
+  assert.equal(Array.isArray(response.data), true);
+
+  return response.data;
 }
 
 export async function checkStreams(
@@ -26,22 +59,12 @@ export async function checkStreams(
   const streamers = getStreamers();
   for (const streamerObj of streamers) {
     const streamer = streamerObj.name;
-    let response;
+    let streams = null;
     try {
-      response = await axios.get("https://api.twitch.tv/helix/streams", {
-        headers: {
-          "Client-ID": config.twitchClientId,
-          Authorization: `Bearer ${accessToken}`,
-        },
-        params: {
-          user_login: streamer,
-        },
-      });
-    } catch (e) {
-			continue;
-    }
+      streams = await getStreamsOf(streamer);
+    } catch { }
 
-    const streamData = response.data.data[0];
+    const streamData = streams?.[0];
     if (streamData) {
       lastStreamTimestamps[streamer] = Date.now();
       updateLastStream(streamer, Date.now());
@@ -49,21 +72,17 @@ export async function checkStreams(
         streamStatus[streamer] = true;
         streamStatus[`${streamer}_category`] = streamData["game_name"];
         notifyStreamStart(client, streamer, streamChannelName, streamStatus);
-      } else {
-        if (streamData["game_name"] != streamStatus[`${streamer}_category`]) {
-          streamStatus[`${streamer}_category`] = streamData["game_name"];
-          notifyCategoryChanged(
-            client,
-            streamer,
-            streamChannelName,
-            streamStatus,
-          );
-        }
+      } else if (streamData["game_name"] != streamStatus[`${streamer}_category`]) {
+        streamStatus[`${streamer}_category`] = streamData["game_name"];
+        notifyCategoryChanged(
+          client,
+          streamer,
+          streamChannelName,
+          streamStatus,
+        );
       }
-    } else {
-      if (streamStatus[streamer]) {
-        streamStatus[streamer] = false;
-      }
+    } else if (streamStatus[streamer]) {
+      streamStatus[streamer] = false;
     }
   }
 }
