@@ -26,3 +26,10 @@ export function seeUsage(client) {
 `);
   }
 }
+
+/**
+ * @param {string} name
+ */
+export function escapeUnderscore(name) {
+  return name.replaceAll("_", "\\_");
+}

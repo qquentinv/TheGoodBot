@@ -57,8 +57,14 @@ Il suffit de lancer la commande suivante avec l'environnement de chargé :
 
 ## Réglages
 
+### Discord
+
 Le bot nécessite des configurations sur la [plateforme de développement de discord](https://discord.com/developers/applications).
 C'est notamment ici que se passe la création de l'application, la modification du nom, de l'image et la génération du token.
+
+### Twitch
+Pour effectuer des appels API vers Twitch, il faut créer une application via le lien suivant [https://dev.twitch.tv/console/apps](https://dev.twitch.tv/console/apps).
+Après la création de votre application, récupérez le "client id" et générez un secret.
 
 ## Développement
 
