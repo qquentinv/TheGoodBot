@@ -4,13 +4,14 @@
 
 - [Bot discord](#bot-discord)
   - [Description](#description)
+  - [Commandes](#commandes)
   - [Pré-requis](#pré-requis)
     - [Logiciel](#logiciel)
     - [Dépendances](#dépendances)
   - [Configuration](#configuration)
-  -
   - [Lancer le projet](#lancer-le-projet)
   - [Réglages](#réglages)
+  - [Développement](développement)
   - [Déploiement](#déploiement)
 
 ## Description
@@ -20,6 +21,15 @@ Ce projet a pour but de créer un bot discord qui a les fonctionnalités suivant
 - Lancer des alertes de stream twitch
 - Lancer des reminders quand les personnes n'ont pas stream depuis un certain temps
 - Crée un word à partir d'un channel grâce à la commande !word
+
+## Commandes
+
+- !help
+- !streamers (list all stream we follow)
+- !add (add a stream to follow)
+- !delete (unfollow a stream)
+- !laststream (date of the last stream)
+- !word (generate docx)
 
 ## Pré-requis
 
@@ -49,6 +59,14 @@ Il suffit de lancer la commande suivante avec l'environnement de chargé :
 
 Le bot nécessite des configurations sur la [plateforme de développement de discord](https://discord.com/developers/applications).
 C'est notamment ici que se passe la création de l'application, la modification du nom, de l'image et la génération du token.
+
+## Développement
+
+Pour développer TheGoodBot, nous utilisons `nodemon`, il se lance à l'aide de la commande
+
+> npm run debug
+
+Note : nous utilisons `node:sqlite` ainsi que l'import de `JSON modules` qui sont des fonctionnalités expérimentales de Node et qui peuvent changer à tout moment.
 
 ## Ressources
 
