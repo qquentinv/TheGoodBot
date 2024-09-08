@@ -44,6 +44,15 @@ Pour lancer le projet, il faut installer les dépendances :
 
 > npm i
 
+### Base de données
+
+Pour mettre en place la base de données, il faut lancer la commande suivant :
+
+> npm run migrate
+
+Notre base de données fonctionne avec un système de migration.
+Pour chaque changement que vous voulez faire dans notre base de données, il faut créer un fichier `XXXX-description.sql` avec `XXXX` qui correspond au nombre qui vont déterminer l'ordre d'exécution.
+
 ## Configuration
 
 Pour configurer le bot sur votre serveur discord, il vous faudra dupliquer le fichier `config-template.json` et le renommer en `config.json`.
@@ -63,6 +72,7 @@ Le bot nécessite des configurations sur la [plateforme de développement de dis
 C'est notamment ici que se passe la création de l'application, la modification du nom, de l'image et la génération du token.
 
 ### Twitch
+
 Pour effectuer des appels API vers Twitch, il faut créer une application via le lien suivant [https://dev.twitch.tv/console/apps](https://dev.twitch.tv/console/apps).
 Après la création de votre application, récupérez le "client id" et générez un secret.
 
