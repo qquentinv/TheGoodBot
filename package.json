@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node --experimental-sqlite src/index.js",
     "debug": "node --experimental-sqlite --watch src/index.js",
-		"migrate": "node --experimental-sqlite migrations/migrate.js",
+    "migrate": "node --experimental-sqlite migrations/migrate.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -19,5 +19,11 @@
   "dependencies": {
     "discord.js": "^14.15.0",
     "docx": "^7.7.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "eslint": "^9.10.0",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3"
   }
 }
