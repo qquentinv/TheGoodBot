@@ -14,16 +14,14 @@ async function getTwitchAccessToken() {
   const rawResponse = await fetch(authUrl.toString(), {
     method: "POST",
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(
-      {
-        client_id: config.twitchClientId,
-        client_secret: config.twitchClientSecret,
-        grant_type:  "client_credentials"
-      }
-    )
+    body: JSON.stringify({
+      client_id: config.twitchClientId,
+      client_secret: config.twitchClientSecret,
+      grant_type: "client_credentials",
+    }),
   });
 
   const responseData = await rawResponse.json();
@@ -44,6 +42,7 @@ async function getStreamsOf(username, accessToken) {
     "Client-ID": config.twitchClientId,
     Authorization: `Bearer ${accessToken}`,
   });
+
   const rawResponse = await fetch(twitchApiUrl.toString(), {
     method: "GET",
     headers,
@@ -71,7 +70,9 @@ export async function checkStreams(
     try {
       streams = await getStreamsOf(streamer, accessToken);
     } catch {
-      console.log(`Erreur lors de la récupération des données du streamer ${streamer}`);
+      console.log(
+        `Erreur lors de la récupération des données du streamer ${streamer}`,
+      );
     }
 
     const streamData = streams?.[0];
@@ -82,7 +83,9 @@ export async function checkStreams(
         streamStatus[streamer] = true;
         streamStatus[`${streamer}_category`] = streamData["game_name"];
         notifyStreamStart(client, streamer, streamChannelName, streamStatus);
-      } else if (streamData["game_name"] != streamStatus[`${streamer}_category`]) {
+      } else if (
+        streamData["game_name"] != streamStatus[`${streamer}_category`]
+      ) {
         streamStatus[`${streamer}_category`] = streamData["game_name"];
         notifyCategoryChanged(
           client,

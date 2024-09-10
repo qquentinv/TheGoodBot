@@ -1,4 +1,7 @@
-import { alreadyExistAddStreamer, successfullyAddStreamer } from "../messages/streamers.js";
+import {
+  alreadyExistAddStreamer,
+  successfullyAddStreamer,
+} from "../messages/streamers.js";
 import { wrongUsage } from "../messages/utils.js";
 import { addStreamer, isStreamerExist } from "../services/database.js";
 
