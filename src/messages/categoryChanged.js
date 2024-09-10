@@ -13,7 +13,7 @@ export function notifyCategoryChanged(
   if (channel) {
     const escapedStreamername = escapeUnderscore(streamer);
     channel.send(
-      `🚀 @everyone ${escapedStreamername} change de jeu. il est maintenant sur ${streamStatus[`${streamer}_category`]} ! Regardez-le ici: https://www.twitch.tv/${escapedStreamername}`,
+      `🚀 @everyone ${escapedStreamername} change de jeu. il est maintenant sur ${streamStatus[`${streamer}_category`]} ! Regardez-le ici: https://www.twitch.tv/${streamer}`,
     );
   }
 }

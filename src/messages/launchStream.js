@@ -15,7 +15,7 @@ export function notifyStreamStart(
     channel.send(
       `🚀 @everyone ${escapedStreamername} vient de commencer un stream sur ${
         streamStatus[streamer + "_" + "category"]
-      } ! Regardez-le ici: https://www.twitch.tv/${escapedStreamername}`,
+      } ! Regardez-le ici: https://www.twitch.tv/${streamer}`,
     );
   }
 }

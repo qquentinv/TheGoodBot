@@ -9,7 +9,7 @@ export function sendReminder(client, streamer) {
   if (channel) {
     const escapedStreamername = escapeUnderscore(streamer);
     channel.send(
-      `⏰ Hey ${escapedStreamername}, cela fait un moment que vous n'avez pas streamé ! Reprenez votre stream sur https://www.twitch.tv/${escapedStreamername}`,
+      `⏰ Hey ${escapedStreamername}, cela fait un moment que vous n'avez pas streamé ! Reprenez votre stream sur https://www.twitch.tv/${streamer}`,
     );
   }
 }
