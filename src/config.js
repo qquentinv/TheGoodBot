@@ -1,22 +1,48 @@
 import assert from "node:assert/strict";
 
 function getConfig() {
-  assert.ok(process.env.DISCORD_TOKEN);
-  assert.ok(process.env.TWITCH_CLIENT_ID);
-  assert.ok(process.env.TWITCH_CLIENT_SECRET);
-  assert.ok(process.env.STREAM_CHANNEL_NAME);
-  assert.ok(process.env.TWITCH_REFRESH_TIME);
-  assert.ok(process.env.REMINDER_INTERVAL_DAYS);
-  assert.ok(process.env.DATABASE_PATH);
+  const discordToken = process.env.DISCORD_TOKEN;
+  const twitchClientId = process.env.TWITCH_CLIENT_ID;
+  const twitchClientSecret = process.env.TWITCH_CLIENT_SECRET;
+  const streamChannelName = process.env.STREAM_CHANNEL_NAME;
+  const twitchRefreshTime = Number.parseInt(
+    process.env.TWITCH_REFRESH_TIME,
+    10,
+  );
+  const reminderIntervalDays = Number.parseInt(
+    process.env.REMINDER_INTERVAL_DAYS,
+    10,
+  );
+  const databasePath = process.env.DATABASE_PATH;
+
+  assert.ok(discordToken, "`DISCORD_TOKEN` doit être défini");
+  assert.ok(twitchClientId, "`TWITCH_CLIENT_ID` doit être défini");
+  assert.ok(twitchClientSecret, "`TWITCH_CLIENT_SECRET` doit être défini");
+  assert.ok(streamChannelName, "`STREAM_CHANNEL_NAME` doit être défini");
+  assert.ok(twitchRefreshTime, "`TWITCH_REFRESH_TIME` doit être défini");
+  assert.ok(reminderIntervalDays, "`REMINDER_INTERVAL_DAYS` doit être défini");
+  assert.ok(databasePath, "`DATABASE_PATH` doit être défini");
+
+  assert.equal(
+    Number.isInteger(twitchRefreshTime),
+    true,
+    "`TWITCH_REFRESH_TIME` doit être un entier !",
+  );
+
+  assert.equal(
+    Number.isInteger(reminderIntervalDays),
+    true,
+    "`REMINDER_INTERVAL_DAYS` doit être un entier !",
+  );
 
   return {
-    discordToken: process.env.DISCORD_TOKEN,
-    twitchClientId: process.env.TWITCH_CLIENT_ID,
-    twitchClientSecret: process.env.TWITCH_CLIENT_SECRET,
-    streamChannelName: process.env.STREAM_CHANNEL_NAME,
-    twitchRefreshTime: process.env.TWITCH_REFRESH_TIME,
-    reminderIntervalDays: process.env.REMINDER_INTERVAL_DAYS,
-    databasePath: process.env.DATABASE_PATH,
+    discordToken,
+    twitchClientId,
+    twitchClientSecret,
+    streamChannelName,
+    twitchRefreshTime,
+    reminderIntervalDays,
+    databasePath,
   };
 }
 
