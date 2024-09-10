@@ -8,4 +8,4 @@ export default {
     trailingComma: "all",
     singleQuote: false,
     bracketSpacing: true,
-}
+};
