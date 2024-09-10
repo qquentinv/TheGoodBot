@@ -1,30 +1,20 @@
 import { readFileSync, rmSync, writeFileSync, existsSync } from "node:fs";
 import { exit } from "node:process";
-import { styleText, parseArgs } from "node:util";
+import { styleText } from "node:util";
 
-const {
-  values: { config },
-} = parseArgs({
-  options: {
-    config: {
-      type: "string",
-      default: "./config.json",
-      short: "c",
-    },
-  },
-});
+const configPath = "./config.json";
 
-if (!existsSync(config)) {
+if (!existsSync(configPath)) {
   console.log(
     styleText(
       ["blue"],
-      `L'ancien fichier de configuration ("${config}") n'est pas présent ici..`,
+      `L'ancien fichier de configuration ("${configPath}") n'est pas présent ici..`,
     ),
   );
   exit();
 }
 
-const file = readFileSync(config, "utf8");
+const file = readFileSync(configPath, "utf8");
 const jsonContent = JSON.parse(file);
 
 /**
@@ -45,12 +35,15 @@ writeFileSync("./.env.local", outputFileLines.join("\n"), "utf8");
 console.log(
   styleText(
     ["blue"],
-    `Le fichier "${config}" a été converti vers ".env.local"`,
+    `Le fichier "${configPath}" a été converti vers ".env.local"`,
   ),
 );
 
-rmSync(config);
+rmSync(configPath);
 
 console.log(
-  styleText(["blue"], `Le fichier de configuration "${config}" a été supprimé`),
+  styleText(
+    ["blue"],
+    `Le fichier de configuration "${configPath}" a été supprimé`,
+  ),
 );
