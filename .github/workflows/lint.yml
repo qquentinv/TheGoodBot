@@ -1,10 +1,6 @@
 name: ESLint CI
 
 on:
-  push:
-    branches:
-      - main
-
   pull_request:
     branches:
       - main
@@ -16,11 +12,11 @@ jobs:
     steps:
       # Vérifie le code du projet
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Configure Node.js
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '22'  # ou la version de Node.js que vous utilisez
 
