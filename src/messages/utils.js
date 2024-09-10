@@ -1,4 +1,4 @@
-import config from "../../config.json" with { type: "json" };
+import { config } from "../config.js";
 
 export function wrongUsage(client, command) {
   const channel = client.channels.cache.find(

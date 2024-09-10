@@ -1,7 +1,7 @@
-import config from "../../config.json" with { type: "json" };
 import { DatabaseSync } from "node:sqlite";
-export const database = new DatabaseSync(config.databasePath);
+import { config } from "../config.js";
 
+export const database = new DatabaseSync(config.databasePath);
 
 export function getStreamers() {
   const query = database.prepare(`SELECT * FROM streamers;`);
