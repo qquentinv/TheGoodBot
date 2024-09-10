@@ -1,0 +1,33 @@
+name: ESLint CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Vérifie le code du projet
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Configure Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'  # ou la version de Node.js que vous utilisez
+
+      # Installe les dépendances du projet
+      - name: Install dependencies
+        run: npm install
+
+      # Exécute ESLint
+      - name: Run ESLint
+        run: npx eslint . # Assurez-vous que votre configuration ESLint est correcte
