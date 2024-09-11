@@ -2,19 +2,19 @@
 
 ## Sommaire
 
-- [Bot discord](#bot-discord)
-  - [Description](#description)
-  - [Commandes](#commandes)
-  - [Pré-requis](#pré-requis)
-    - [Logiciel](#logiciel)
-    - [Dépendances](#dépendances)
-    - [Base de données](#base-de-données)
-  - [Configuration](#configuration)
-  - [Lancer le projet](#lancer-le-projet)
-  - [Réglages](#réglages)
-  - [Développement](développement)
-  - [Déploiement](#déploiement)
-  - [Ressources](#ressources)
+- [Description](#description)
+- [Commandes](#commandes)
+- [Pré-requis](#pré-requis)
+  - [Logiciel](#logiciel)
+  - [Dépendances](#dépendances)
+  - [Base de données](#base-de-données)
+- [Configuration](#configuration)
+- [Lancer le projet](#lancer-le-projet)
+- [Réglages](#réglages)
+- [Développement](#développement)
+- [Tests](#tests)
+- [Déploiement](#déploiement)
+- [Ressources](#ressources)
 
 ## Description
 
@@ -44,13 +44,13 @@ Ce projet a pour but de créer un bot discord qui a les fonctionnalités suivant
 
 Pour lancer le projet, il faut installer les dépendances :
 
-> npm i
+> `npm i`
 
 ### Base de données
 
 Pour mettre en place la base de données, il faut lancer la commande suivant :
 
-> npm run migrate
+> `npm run migrate`
 
 Notre base de données fonctionne avec un système de migration.
 Pour chaque changement que vous voulez faire dans notre base de données, il faut créer un fichier `XXXX-description.sql` avec `XXXX` qui correspond au nombre qui vont déterminer l'ordre d'exécution.
@@ -64,7 +64,7 @@ Ensuite il vous faudra remplacer les valeurs de chaque variable avec les votres.
 
 Il suffit de lancer la commande suivante avec l'environnement de chargé :
 
-> npm start
+> `npm start`
 
 ## Réglages
 
@@ -87,7 +87,15 @@ Pour lancer TheGoodBot, il suffit d'exécuter la commande. Grâce au paramètre 
 Note : nous utilisons `node:sqlite` qui est fonctionnalité expérimentale de Node.js et qui peut changer à tout moment.
 
 ### Migrer le fichier `config.json`
+
 Depuis la mise en place de la BDD Sqlite, l'utilisation d'un fichier `.json` pour la configuration n'est plus nécessaire. Vous pouvez migrer vers un `.env.local` avec la commande `node .bin/convert-json-config-to-env.js`.
+
+## Tests
+
+Des tests unitaires sur certaines parties du code sont présents dans le dossier `tests` à la racine du projet.
+Pour lancer les tests, il suffit d'éxécuter la commmande suivante :
+
+> `npm run test`
 
 ## Déploiement
 
@@ -95,27 +103,27 @@ Ce bot peut être déployé sur un VPS ou encore un raspberry.
 Pour cela, j'utilise le package `pm2`. il permet de lancer des applications node en tant que service unix.
 On peut le lancer grâce à la commande :
 
-> pm2 start npm --name "TheGoodBot" -- start
+> `pm2 start npm --name "TheGoodBot" -- start`
 
 On peut consulter les différentes applications en cours de lancement grâce à la commande :
 
-> pm2 status
+> `pm2 status`
 
 On peut aussi relancer facilement le serveur grâce à la commande :
 
-> pm2 restart "TheGoodBot"
+> `pm2 restart "TheGoodBot"`
 
 On a même accès à un tableau de bord qui contient notamment les statistiques de performance et les logs avec la commande :
 
-> pm2 dash
+> `pm2 dash`
 
 Pour obtenir seulement les logs, utiliser :
 
-> pm2 log
+> `pm2 log`
 
 Pour terminer, on peut arrêter le bot grâce à la commande :
 
-> pm2 stop "TheGoodBot"
+> `pm2 stop "TheGoodBot"`
 
 ## Ressources
 
