@@ -16,6 +16,18 @@ export function listRegisteredStreamer(client, listStreamers) {
   }
 }
 
+export function emptyStreamerList(client) {
+  console.log(`empty streamer list`);
+  const channel = client.channels.cache.find(
+    (ch) => ch.name === config.streamChannelName,
+  );
+  if (channel) {
+    channel.send(
+      "Aucun streamer n'a été renseigné pour le moment. Utilisez la commande `!add` pour en ajouter.",
+    );
+  }
+}
+
 export function successfullyAddStreamer(client, name) {
   console.log(`added streamer ${name}`);
   const channel = client.channels.cache.find(
