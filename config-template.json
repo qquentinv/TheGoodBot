@@ -1,9 +1,0 @@
-{
-  "discordToken": "YOUR_DISCORD_BOT_TOKEN",
-  "twitchClientId": "YOUR_TWITCH_CLIENT_ID",
-  "twitchClientSecret": "YOUR_TWITCH_CLIENT_SECRET",
-  "streamChannelName": "stream",
-  "twitchRefreshTime": 120000,
-  "reminderIntervalDays": 7,
-  "databasePath": "./stream.db"
-}

@@ -1,4 +1,4 @@
-import config from "./../../config.json" with { type: "json" };
+import { config } from "../config.js";
 import { sendReminder } from "./../messages/reminderStream.js";
 import { getStreamers } from "./database.js";
 const msInADay = 24 * 60 * 60 * 1000;

@@ -80,11 +80,14 @@ Après la création de votre application, récupérez le "client id" et génére
 
 ## Développement
 
-Pour développer TheGoodBot, nous utilisons `nodemon`, il se lance à l'aide de la commande
+Pour lancer TheGoodBot, il suffit d'exécuter la commande. Grâce au paramètre `--watch`, le projet se relancera à chaque modification apportée au code.
 
-> npm run debug
+> `npm run debug`
 
-Note : nous utilisons `node:sqlite` ainsi que l'import de `JSON modules` qui sont des fonctionnalités expérimentales de Node et qui peuvent changer à tout moment.
+Note : nous utilisons `node:sqlite` qui est fonctionnalité expérimentale de Node.js et qui peut changer à tout moment.
+
+### Migrer le fichier `config.json`
+Depuis la mise en place de la BDD Sqlite, l'utilisation d'un fichier `.json` pour la configuration n'est plus nécessaire. Vous pouvez migrer vers un `.env.local` avec la commande `node .bin/convert-json-config-to-env.js`.
 
 ## Déploiement
 

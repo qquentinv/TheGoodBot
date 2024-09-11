@@ -1,12 +1,12 @@
-import config from "../../config.json" with { type: "json" };
-import { checkForReminders } from "./reminder.js";
 import { checkStreams } from "../api/twitchApi.js";
-import { createWordFile } from "./generateDocx.js";
-import { seeUsage } from "../messages/utils.js";
 import { addCommand } from "../commands/add.js";
 import { deleteCommand } from "../commands/delete.js";
 import { laststreamCommand } from "../commands/laststream.js";
 import { streamersCommand } from "../commands/streamers.js";
+import { config } from "../config.js";
+import { seeUsage } from "../messages/utils.js";
+import { createWordFile } from "./generateDocx.js";
+import { checkForReminders } from "./reminder.js";
 
 let streamStatus = {};
 let lastStreamTimestamps = {};

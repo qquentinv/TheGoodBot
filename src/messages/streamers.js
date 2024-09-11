@@ -1,4 +1,4 @@
-import config from "../../config.json" with { type: "json" };
+import { config } from "../config.js";
 import { escapeUnderscore } from "./utils.js";
 
 export function listRegisteredStreamer(client, listStreamers) {
@@ -22,7 +22,9 @@ export function successfullyAddStreamer(client, name) {
     (ch) => ch.name === config.streamChannelName,
   );
   if (channel) {
-    channel.send(`✅  Les streams de _${escapeUnderscore(name)}_ sont désormais suivis.`);
+    channel.send(
+      `✅  Les streams de _${escapeUnderscore(name)}_ sont désormais suivis.`,
+    );
   }
 }
 export function alreadyExistAddStreamer(client, name) {
@@ -30,7 +32,9 @@ export function alreadyExistAddStreamer(client, name) {
     (ch) => ch.name === config.streamChannelName,
   );
   if (channel) {
-    channel.send(`❗ Les streams de _${escapeUnderscore(name)}_ sont déjà suivis.`);
+    channel.send(
+      `❗ Les streams de _${escapeUnderscore(name)}_ sont déjà suivis.`,
+    );
   }
 }
 
@@ -40,7 +44,9 @@ export function successfullyRemoveStreamer(client, name) {
     (ch) => ch.name === config.streamChannelName,
   );
   if (channel) {
-    channel.send(`❌  Les streams de _${escapeUnderscore(name)}_ ne sont plus suivis.`);
+    channel.send(
+      `❌  Les streams de _${escapeUnderscore(name)}_ ne sont plus suivis.`,
+    );
   }
 }
 export function notExistStreamer(client, name) {
@@ -48,7 +54,9 @@ export function notExistStreamer(client, name) {
     (ch) => ch.name === config.streamChannelName,
   );
   if (channel) {
-    channel.send(`❗ Les streams de _${escapeUnderscore(name)}_ ne sont pas suivis.`);
+    channel.send(
+      `❗ Les streams de _${escapeUnderscore(name)}_ ne sont pas suivis.`,
+    );
   }
 }
 
@@ -59,6 +67,8 @@ export function lastStream(client, name, date) {
   if (channel) {
     let formatedDate = new Date(date);
     formatedDate = formatedDate.toLocaleDateString("fr-FR");
-    channel.send(`📆 Le dernier stream de _${escapeUnderscore(name)}_ date du ${formatedDate}`);
+    channel.send(
+      `📆 Le dernier stream de _${escapeUnderscore(name)}_ date du ${formatedDate}`,
+    );
   }
 }
