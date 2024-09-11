@@ -7,7 +7,7 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       # Vérifie le code du projet
@@ -22,7 +22,7 @@ jobs:
 
       # Installe les dépendances du projet
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       # Exécute ESLint
       - name: Run ESLint
