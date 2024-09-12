@@ -9,10 +9,10 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node --experimental-sqlite --env-file=./.env --env-file=./.env.local src/index.js",
-    "debug": "node --experimental-sqlite --watch --env-file=./.env --env-file=./.env.local src/index.js",
-    "migrate": "node --experimental-sqlite migrations/migrate.js",
-    "test": "node --test tests/*.test.js"
+    "start": "node --experimental-sqlite --experimental-strip-types --env-file=./.env --env-file=./.env.local src/index.ts",
+    "debug": "node --experimental-sqlite --experimental-strip-types --watch --env-file=./.env --env-file=./.env.local src/index.ts",
+    "migrate": "node --experimental-sqlite --experimental-strip-types migrations/migrate.ts",
+    "test": "node --test tests/*.test.ts"
   },
   "author": "",
   "license": "ISC",
@@ -27,7 +27,6 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.9.0",
-    "prettier": "^3.3.3",
-    "typescript": "^5.6.2"
+    "prettier": "^3.3.3"
   }
 }
