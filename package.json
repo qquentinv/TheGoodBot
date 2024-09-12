@@ -11,10 +11,10 @@
   "scripts": {
     "start": "node --experimental-sqlite --experimental-strip-types --env-file=./.env --env-file=./.env.local src/index.ts",
     "debug": "node --experimental-sqlite --experimental-strip-types --watch --env-file=./.env --env-file=./.env.local src/index.ts",
-    "migrate": "node --experimental-sqlite --experimental-strip-types migrations/migrate.ts",
+    "migrate": "node --experimental-sqlite --experimental-strip-types src/migrations/migrate.ts",
     "test": "node --test tests/*.test.ts"
   },
-  "author": "",
+  "author": "qquentinv",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^14.15.0",
