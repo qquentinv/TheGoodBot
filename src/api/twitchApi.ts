@@ -1,7 +1,7 @@
 import { config } from "../config.js";
 import { getStreamers, updateLastStream } from "../services/database.js";
-import { notifyCategoryChanged } from "./../messages/categoryChanged.js";
-import { notifyStreamStart } from "./../messages/launchStream.js";
+import { notifyCategoryChanged } from "../messages/categoryChanged.js";
+import { notifyStreamStart } from "../messages/launchStream.js";
 
 import assert from "node:assert";
 

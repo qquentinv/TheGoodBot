@@ -1,10 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 
-/**
- * @param {string} name
- */
-export function escapeUnderscore(name) {
+export function escapeUnderscore(name: string): string {
   return name.replaceAll("_", "\\_");
 }
 
