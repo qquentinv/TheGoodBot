@@ -1,15 +1,17 @@
-import { escapeUnderscore } from "./utils.js";
+import type { Client, TextChannel } from "discord.js";
+import { escapeUnderscore } from "./utils.ts";
 
 export function notifyCategoryChanged(
-  client,
-  streamer,
-  streamChannelName,
-  streamStatus,
+  client: Client,
+  streamer: string,
+  streamChannelName: string,
+  streamStatus: any,
 ) {
   console.log(`notification de live pour ${streamer} : category changed`);
   const channel = client.channels.cache.find(
-    (ch) => ch.name === streamChannelName,
+    (ch): ch is TextChannel => (ch as TextChannel).name === streamChannelName,
   );
+
   if (channel) {
     const escapedStreamername = escapeUnderscore(streamer);
     channel.send(

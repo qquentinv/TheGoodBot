@@ -1,14 +1,12 @@
-import { config } from "../config.js";
-import { getStreamers, updateLastStream } from "../services/database.js";
-import { notifyCategoryChanged } from "../messages/categoryChanged.js";
-import { notifyStreamStart } from "../messages/launchStream.js";
+import { config } from "../config.ts";
+import { getStreamers, updateLastStream } from "../services/database.ts";
+import { notifyCategoryChanged } from "../messages/categoryChanged.ts";
+import { notifyStreamStart } from "../messages/launchStream.ts";
 
 import assert from "node:assert";
+import type { Client } from "discord.js";
 
-/**
- * @returns {Promise<string>}
- */
-async function getTwitchAccessToken() {
+async function getTwitchAccessToken(): Promise<string> {
   const authUrl = new URL("https://id.twitch.tv/oauth2/token");
 
   const rawResponse = await fetch(authUrl.toString(), {
@@ -24,17 +22,13 @@ async function getTwitchAccessToken() {
     }),
   });
 
-  const responseData = await rawResponse.json();
+  const responseData: any = await rawResponse.json();
   assert.ok(responseData.access_token);
 
   return responseData.access_token;
 }
 
-/**
- * @param {string} username
- * @param {string} accessToken
- */
-async function getStreamsOf(username, accessToken) {
+async function getStreamsOf(username: string, accessToken: string) {
   const twitchApiUrl = new URL("https://api.twitch.tv/helix/streams");
   twitchApiUrl.searchParams.set("user_login", username);
 
@@ -48,7 +42,7 @@ async function getStreamsOf(username, accessToken) {
     headers,
   });
 
-  const response = await rawResponse.json();
+  const response: any = await rawResponse.json();
   assert.ok(response.data);
   assert.equal(Array.isArray(response.data), true);
 
@@ -56,10 +50,10 @@ async function getStreamsOf(username, accessToken) {
 }
 
 export async function checkStreams(
-  client,
-  streamStatus,
-  streamChannelName,
-  lastStreamTimestamps,
+  client: Client,
+  streamStatus: any,
+  streamChannelName : string,
+  lastStreamTimestamps: { [streamer: string]: number; },
 ) {
   const accessToken = await getTwitchAccessToken();
   console.log("Connect to Twitch");

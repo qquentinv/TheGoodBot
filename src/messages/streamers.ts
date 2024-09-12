@@ -1,10 +1,16 @@
-import { config } from "../config.js";
-import { escapeUnderscore } from "./utils.js";
+import type { Client, TextChannel } from "discord.js";
+import { config } from "../config.ts";
+import { escapeUnderscore } from "./utils.ts";
+import type { Streamer } from "../types/streamer.ts";
 
-export function listRegisteredStreamer(client, listStreamers) {
+export function listRegisteredStreamer(
+  client: Client,
+  listStreamers: Streamer[],
+): void {
   console.log(`list all streamers`);
   const channel = client.channels.cache.find(
-    (ch) => ch.name === config.streamChannelName,
+    (ch): ch is TextChannel =>
+      (ch as TextChannel).name === config.streamChannelName,
   );
   if (channel) {
     const streamers = listStreamers.reduce((acc, current) => {
@@ -16,10 +22,11 @@ export function listRegisteredStreamer(client, listStreamers) {
   }
 }
 
-export function emptyStreamerList(client) {
+export function emptyStreamerList(client: Client): void {
   console.log(`empty streamer list`);
   const channel = client.channels.cache.find(
-    (ch) => ch.name === config.streamChannelName,
+    (ch): ch is TextChannel =>
+      (ch as TextChannel).name === config.streamChannelName,
   );
   if (channel) {
     channel.send(
@@ -28,10 +35,11 @@ export function emptyStreamerList(client) {
   }
 }
 
-export function successfullyAddStreamer(client, name) {
+export function successfullyAddStreamer(client: Client, name: string): void {
   console.log(`added streamer ${name}`);
   const channel = client.channels.cache.find(
-    (ch) => ch.name === config.streamChannelName,
+    (ch): ch is TextChannel =>
+      (ch as TextChannel).name === config.streamChannelName,
   );
   if (channel) {
     channel.send(
@@ -39,9 +47,10 @@ export function successfullyAddStreamer(client, name) {
     );
   }
 }
-export function alreadyExistAddStreamer(client, name) {
+export function alreadyExistAddStreamer(client: Client, name: string): void {
   const channel = client.channels.cache.find(
-    (ch) => ch.name === config.streamChannelName,
+    (ch): ch is TextChannel =>
+      (ch as TextChannel).name === config.streamChannelName,
   );
   if (channel) {
     channel.send(
@@ -50,10 +59,11 @@ export function alreadyExistAddStreamer(client, name) {
   }
 }
 
-export function successfullyRemoveStreamer(client, name) {
+export function successfullyRemoveStreamer(client: Client, name: string): void {
   console.log(`remove streamer ${name}`);
   const channel = client.channels.cache.find(
-    (ch) => ch.name === config.streamChannelName,
+    (ch): ch is TextChannel =>
+      (ch as TextChannel).name === config.streamChannelName,
   );
   if (channel) {
     channel.send(
@@ -61,9 +71,10 @@ export function successfullyRemoveStreamer(client, name) {
     );
   }
 }
-export function notExistStreamer(client, name) {
+export function notExistStreamer(client: Client, name: string): void {
   const channel = client.channels.cache.find(
-    (ch) => ch.name === config.streamChannelName,
+    (ch): ch is TextChannel =>
+      (ch as TextChannel).name === config.streamChannelName,
   );
   if (channel) {
     channel.send(
@@ -72,13 +83,13 @@ export function notExistStreamer(client, name) {
   }
 }
 
-export function lastStream(client, name, date) {
+export function lastStream(client: Client, name: string, date: Date) {
   const channel = client.channels.cache.find(
-    (ch) => ch.name === config.streamChannelName,
+    (ch): ch is TextChannel =>
+      (ch as TextChannel).name === config.streamChannelName,
   );
   if (channel) {
-    let formatedDate = new Date(date);
-    formatedDate = formatedDate.toLocaleDateString("fr-FR");
+    let formatedDate = new Date(date).toLocaleDateString("fr-FR");
     channel.send(
       `📆 Le dernier stream de _${escapeUnderscore(name)}_ date du ${formatedDate}`,
     );

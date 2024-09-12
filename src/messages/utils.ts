@@ -1,8 +1,10 @@
-import { config } from "../config.js";
+import type { Client, TextChannel } from "discord.js";
+import { config } from "../config.ts";
 
-export function wrongUsage(client, command) {
+export function wrongUsage(client: Client, command: string) {
   const channel = client.channels.cache.find(
-    (ch) => ch.name === config.streamChannelName,
+    (ch): ch is TextChannel =>
+      (ch as TextChannel).name === config.streamChannelName,
   );
   if (channel) {
     channel.send(
@@ -11,9 +13,10 @@ export function wrongUsage(client, command) {
   }
 }
 
-export function seeUsage(client) {
+export function seeUsage(client: Client) {
   const channel = client.channels.cache.find(
-    (ch) => ch.name === config.streamChannelName,
+    (ch): ch is TextChannel =>
+      (ch as TextChannel).name === config.streamChannelName,
   );
   if (channel) {
     channel.send(`
@@ -27,9 +30,6 @@ export function seeUsage(client) {
   }
 }
 
-/**
- * @param {string} name
- */
-export function escapeUnderscore(name) {
+export function escapeUnderscore(name: string): string {
   return name.replaceAll("_", "\\_");
 }

@@ -1,20 +1,22 @@
 import { DatabaseSync } from "node:sqlite";
-import { config } from "../config.js";
+import { config } from "../config.ts";
+import type { Streamer } from "../types/streamer.ts";
 
 export const database = new DatabaseSync(config.databasePath);
 
-export function getStreamers() {
+export function getStreamers(): Streamer[] {
   const query = database.prepare(`SELECT * FROM streamers;`);
-  return query.all();
+  return query.all() as Streamer[];
 }
-export function getStreamer(name) {
+
+export function getStreamer(name: string): Streamer {
   const query = database.prepare(
     `SELECT * FROM streamers WHERE streamers.name = (?)`,
   );
-  return query.all(name)[0];
+  return query.all(name)[0] as Streamer;
 }
 
-export function isStreamerExist(name) {
+export function isStreamerExist(name: string): boolean {
   const res = getStreamer(name);
   if (res) {
     return true;
@@ -22,19 +24,19 @@ export function isStreamerExist(name) {
   return false;
 }
 
-export function addStreamer(name) {
+export function addStreamer(name: string): void {
   const query = database.prepare(`INSERT INTO streamers (name) VALUES (?)`);
   query.run(name);
 }
 
-export function removeStreamer(name) {
+export function removeStreamer(name: string): void {
   const query = database.prepare(
     `DELETE FROM streamers WHERE streamers.name = (?)`,
   );
   query.run(name);
 }
 
-export function updateLastStream(name, lastStream) {
+export function updateLastStream(name: string, lastStream: number): void {
   const query = database.prepare(
     `UPDATE streamers SET last_stream = (?) WHERE streamers.name = (?)`,
   );
