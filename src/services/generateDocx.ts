@@ -20,7 +20,7 @@ export async function createWordFile(msg: Message): Promise<void> {
   if (!channelMessages) return;
 
   // add content message in word
-  channelMessages.forEach((msg) => {
+  channelMessages.forEach((msg: Message) => {
     console.log(msg.content);
     if (!msg.author.bot && msg.content.toLowerCase() !== "!word") {
       content.push(new docx.TextRun({ text: msg.content, break: 1 }));
