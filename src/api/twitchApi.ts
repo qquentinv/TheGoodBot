@@ -10,6 +10,7 @@ import type {
   StreamerData,
   StreamerResponse,
 } from "../types/twitch";
+import type { StreamStatus } from "../types/streamer";
 
 async function getTwitchAccessToken(): Promise<string> {
   const authUrl = new URL("https://id.twitch.tv/oauth2/token");
@@ -60,7 +61,7 @@ async function getStreamsOf(
 
 export async function checkStreams(
   client: Client,
-  streamStatus: any,
+  streamStatus: StreamStatus,
   streamChannelName: string,
   lastStreamTimestamps: { [streamer: string]: number },
 ) {
