@@ -26,7 +26,7 @@ export async function startBot(client: Client): Promise<void> {
 
 export async function handleMessage(client: Client , msg: Message): Promise<void> {
   if (msg.author.bot) return;
-  const stdin = msg.content.trim().split(" ");
+  const stdin: string[] = msg.content.trim().split(" ");
   switch (stdin[0]) {
     case "!word":
       await createWordFile(msg);
