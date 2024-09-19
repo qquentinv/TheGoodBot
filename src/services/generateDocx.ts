@@ -1,4 +1,4 @@
-import type { Message } from "discord.js";
+import type { Message, Collection } from "discord.js";
 import docx from "docx";
 
 export async function createWordFile(msg: Message): Promise<void> {
@@ -8,16 +8,19 @@ export async function createWordFile(msg: Message): Promise<void> {
 
   // get all message (limit 100 now)
   // regarder comment faire pour prendre tous les messages
-  const channelMessages: any = await msg.channel.messages
-    .fetch({ limit: 100 })
-    .catch((err) => console.log(err));
+  const channelMessages: void | Collection<string, Message> =
+    await msg.channel.messages
+      .fetch({ limit: 100 })
+      .catch((err): void => console.log(err));
 
   const content: docx.TextRun[] = [];
   // checker si les msgs sont des images pour les enregistrer dans le fs
   // ajouter les images dans le word
 
+  if (!channelMessages) return;
+
   // add content message in word
-  await channelMessages.forEach((msg: { content: string; author: { bot: any; }; }) => {
+  channelMessages.forEach((msg) => {
     console.log(msg.content);
     if (!msg.author.bot && msg.content.toLowerCase() !== "!word") {
       content.push(new docx.TextRun({ text: msg.content, break: 1 }));
