@@ -3,7 +3,7 @@ import { lastStream, notExistStreamer } from "../messages/streamers.ts";
 import { wrongUsage } from "../messages/utils.ts";
 import { getStreamer, isStreamerExist } from "../services/database.ts";
 
-export function laststreamCommand(client: Client, stdin: any[]) {
+export function laststreamCommand(client: Client, stdin: any[]): void {
   if (stdin.length == 1) {
     wrongUsage(client, stdin[0]);
     return;

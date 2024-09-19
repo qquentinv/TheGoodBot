@@ -6,7 +6,7 @@ import {
 import { wrongUsage } from "../messages/utils.ts";
 import { addStreamer, isStreamerExist } from "../services/database.ts";
 
-export function addCommand(client: Client, stdin: any[]) {
+export function addCommand(client: Client, stdin: any[]): void {
   if (stdin.length == 1) {
     wrongUsage(client, stdin[0]);
     return;

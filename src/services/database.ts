@@ -6,7 +6,8 @@ export const database = new DatabaseSync(config.databasePath);
 
 export function getStreamers(): Streamer[] {
   const query = database.prepare(`SELECT * FROM streamers;`);
-  return query.all() as Streamer[];
+  //return query.all() as Streamer[];
+  return [{name: 'striikerrr_', last_stream: new Date('1960-12-18')}]
 }
 
 export function getStreamer(name: string): Streamer {

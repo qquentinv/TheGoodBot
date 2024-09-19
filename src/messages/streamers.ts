@@ -89,7 +89,7 @@ export function lastStream(client: Client, name: string, date: Date) {
       (ch as TextChannel).name === config.streamChannelName,
   );
   if (channel) {
-    let formatedDate = new Date(date).toLocaleDateString("fr-FR");
+    const formatedDate = new Date(date).toLocaleDateString("fr-FR");
     channel.send(
       `📆 Le dernier stream de _${escapeUnderscore(name)}_ date du ${formatedDate}`,
     );

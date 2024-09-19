@@ -5,6 +5,11 @@ import { notifyStreamStart } from "../messages/launchStream.ts";
 
 import assert from "node:assert";
 import type { Client } from "discord.js";
+import type {
+  AuthResponse,
+  StreamerData,
+  StreamerResponse,
+} from "../types/twitch";
 
 async function getTwitchAccessToken(): Promise<string> {
   const authUrl = new URL("https://id.twitch.tv/oauth2/token");
@@ -22,13 +27,16 @@ async function getTwitchAccessToken(): Promise<string> {
     }),
   });
 
-  const responseData: any = await rawResponse.json();
+  const responseData: AuthResponse = (await rawResponse.json()) as AuthResponse;
   assert.ok(responseData.access_token);
 
   return responseData.access_token;
 }
 
-async function getStreamsOf(username: string, accessToken: string) {
+async function getStreamsOf(
+  username: string,
+  accessToken: string,
+): Promise<StreamerData[]> {
   const twitchApiUrl = new URL("https://api.twitch.tv/helix/streams");
   twitchApiUrl.searchParams.set("user_login", username);
 
@@ -42,7 +50,8 @@ async function getStreamsOf(username: string, accessToken: string) {
     headers,
   });
 
-  const response: any = await rawResponse.json();
+  const response: StreamerResponse =
+    (await rawResponse.json()) as StreamerResponse;
   assert.ok(response.data);
   assert.equal(Array.isArray(response.data), true);
 
@@ -52,8 +61,8 @@ async function getStreamsOf(username: string, accessToken: string) {
 export async function checkStreams(
   client: Client,
   streamStatus: any,
-  streamChannelName : string,
-  lastStreamTimestamps: { [streamer: string]: number; },
+  streamChannelName: string,
+  lastStreamTimestamps: { [streamer: string]: number },
 ) {
   const accessToken = await getTwitchAccessToken();
   console.log("Connect to Twitch");
