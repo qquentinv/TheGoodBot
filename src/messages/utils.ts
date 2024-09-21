@@ -1,6 +1,5 @@
-import type { Client, TextChannel } from "discord.js";
+import { ChannelType, type Client, type TextChannel } from "discord.js";
 import { config } from "../config.ts";
-import { ChannelType } from "../../node_modules/discord-api-types/v10";
 
 export function wrongUsage(client: Client, command: string) {
   const channel = getTextChannel(client);
