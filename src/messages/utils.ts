@@ -1,11 +1,9 @@
 import type { Client, TextChannel } from "discord.js";
 import { config } from "../config.ts";
+import { ChannelType } from "../../node_modules/discord-api-types/v10";
 
 export function wrongUsage(client: Client, command: string) {
-  const channel = client.channels.cache.find(
-    (ch): ch is TextChannel =>
-      (ch as TextChannel).name === config.streamChannelName,
-  );
+  const channel = getTextChannel(client);
   if (channel) {
     channel.send(
       `❌ Mauvaise utilisation de \`${command}\`. Utilisez \`!help\` pour voir la liste des commandes.`,
@@ -14,10 +12,7 @@ export function wrongUsage(client: Client, command: string) {
 }
 
 export function seeUsage(client: Client) {
-  const channel = client.channels.cache.find(
-    (ch): ch is TextChannel =>
-      (ch as TextChannel).name === config.streamChannelName,
-  );
+  const channel = getTextChannel(client);
   if (channel) {
     channel.send(`
 💻 Liste des commandes disponibles :
@@ -32,4 +27,11 @@ export function seeUsage(client: Client) {
 
 export function escapeUnderscore(name: string): string {
   return name.replaceAll("_", "\\_");
+}
+
+function getTextChannel(client: Client): TextChannel | undefined {
+  return client.channels.cache.find(
+    (ch): ch is TextChannel =>
+      ch.type === ChannelType.GuildText && ch.name === config.streamChannelName,
+  );
 }
