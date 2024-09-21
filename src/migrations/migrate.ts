@@ -1,4 +1,4 @@
-import config from "../config.json" with { type: "json" };
+import { config } from "./../config.ts";
 import { DatabaseSync } from "node:sqlite";
 import fs from "fs";
 import path from "path";
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS 'migrations' (
 );
 	`);
 }
-function hasMigrationBeenApplied(name) {
+function hasMigrationBeenApplied(name: string) {
   const query = database.prepare(
     `SELECT * FROM migrations WHERE migrations.name = (?)`,
   );
@@ -24,13 +24,13 @@ function hasMigrationBeenApplied(name) {
   }
   return false;
 }
-function insertMigration(name) {
+function insertMigration(name: string) {
   const query = database.prepare(
     `INSERT INTO migrations (name, done_at) VALUES (?, ?)`,
   );
   query.run(name, Date.now());
 }
-function applyMigration(content) {
+function applyMigration(content: string) {
   const query = database.prepare(content);
   query.run();
 }

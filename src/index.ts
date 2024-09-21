@@ -1,6 +1,6 @@
 import { Client, GatewayIntentBits } from "discord.js";
-import { config } from "./config.js";
-import { handleMessage, startBot } from "./services/bot.js";
+import { config } from "./config.ts";
+import { handleMessage, startBot } from "./services/bot.ts";
 
 const client = new Client({
   intents: [

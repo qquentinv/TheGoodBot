@@ -6,11 +6,11 @@ function getConfig() {
   const twitchClientSecret = process.env.TWITCH_CLIENT_SECRET;
   const streamChannelName = process.env.STREAM_CHANNEL_NAME;
   const twitchRefreshTime = Number.parseInt(
-    process.env.TWITCH_REFRESH_TIME,
+    process.env.TWITCH_REFRESH_TIME ?? '120000',
     10,
   );
   const reminderIntervalDays = Number.parseInt(
-    process.env.REMINDER_INTERVAL_DAYS,
+    process.env.REMINDER_INTERVAL_DAYS ?? '7',
     10,
   );
   const databasePath = process.env.DATABASE_PATH;

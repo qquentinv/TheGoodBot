@@ -1,17 +1,18 @@
-import { checkStreams } from "../api/twitchApi.js";
-import { addCommand } from "../commands/add.js";
-import { deleteCommand } from "../commands/delete.js";
-import { laststreamCommand } from "../commands/laststream.js";
-import { streamersCommand } from "../commands/streamers.js";
-import { config } from "../config.js";
-import { seeUsage } from "../messages/utils.js";
-import { createWordFile } from "./generateDocx.js";
-import { checkForReminders } from "./reminder.js";
+import { Client, Message } from "discord.js";
+import { checkStreams } from "../api/twitchApi.ts";
+import { addCommand } from "../commands/add.ts";
+import { deleteCommand } from "../commands/delete.ts";
+import { laststreamCommand } from "../commands/laststream.ts";
+import { streamersCommand } from "../commands/streamers.ts";
+import { config } from "../config.ts";
+import { seeUsage } from "../messages/utils.ts";
+import { createWordFile } from "./generateDocx.ts";
+import { checkForReminders } from "./reminder.ts";
 
 let streamStatus = {};
 let lastStreamTimestamps = {};
 
-export async function startBot(client) {
+export async function startBot(client: Client): Promise<void> {
   setInterval(() => {
     checkStreams(
       client,
@@ -23,9 +24,9 @@ export async function startBot(client) {
   }, config.twitchRefreshTime);
 }
 
-export async function handleMessage(client, msg) {
+export async function handleMessage(client: Client , msg: Message): Promise<void> {
   if (msg.author.bot) return;
-  const stdin = msg.content.trim().split(" ");
+  const stdin: string[] = msg.content.trim().split(" ");
   switch (stdin[0]) {
     case "!word":
       await createWordFile(msg);

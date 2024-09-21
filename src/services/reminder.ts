@@ -1,9 +1,14 @@
-import { config } from "../config.js";
-import { sendReminder } from "./../messages/reminderStream.js";
-import { getStreamers } from "./database.js";
+import type { Client } from "discord.js";
+import { config } from "../config.ts";
+import { sendReminder } from "../messages/reminderStream.ts";
+import { getStreamers } from "./database.ts";
+
 const msInADay = 24 * 60 * 60 * 1000;
 
-export async function checkForReminders(client, lastStreamTimestamps) {
+export async function checkForReminders(
+  client: Client,
+  lastStreamTimestamps: { [x: string]: number; },
+) {
   const now = Date.now();
 
   const streamers = getStreamers();
