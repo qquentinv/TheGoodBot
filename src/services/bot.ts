@@ -5,7 +5,7 @@ import { deleteCommand } from "../commands/delete.ts";
 import { laststreamCommand } from "../commands/laststream.ts";
 import { streamersCommand } from "../commands/streamers.ts";
 import { config } from "../config.ts";
-import { seeUsage } from "../messages/utils.ts";
+import { seeUsage, seeContributor } from "../messages/utils.ts";
 import { createWordFile } from "./generateDocx.ts";
 import { checkForReminders } from "./reminder.ts";
 
@@ -24,7 +24,10 @@ export async function startBot(client: Client): Promise<void> {
   }, config.twitchRefreshTime);
 }
 
-export async function handleMessage(client: Client , msg: Message): Promise<void> {
+export async function handleMessage(
+  client: Client,
+  msg: Message,
+): Promise<void> {
   if (msg.author.bot) return;
   const stdin: string[] = msg.content.trim().split(" ");
   switch (stdin[0]) {
@@ -45,6 +48,9 @@ export async function handleMessage(client: Client , msg: Message): Promise<void
       break;
     case "!help":
       seeUsage(client);
+      break;
+    case "!contributor":
+      await seeContributor(client);
       break;
   }
 }

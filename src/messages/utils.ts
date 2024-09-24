@@ -1,5 +1,7 @@
 import { ChannelType, type Client, type TextChannel } from "discord.js";
 import { config } from "../config.ts";
+import { getGHContributor } from "../api/githubApi.ts";
+import { type ContributorResponse } from "../types/github.ts";
 
 export function wrongUsage(client: Client, command: string) {
   const channel = getTextChannel(client);
@@ -21,6 +23,28 @@ export function seeUsage(client: Client) {
 * \`!delete <STREAMER>\` - Supprimer un stream suivie.
 * \`!laststream <STREAMER>\` - Date du dernier stream.
 `);
+  }
+}
+
+export async function seeContributor(client: Client) {
+  console.log("Affichage des contributors du projet");
+  const channel = getTextChannel(client);
+
+  // récupérer les contributors depuis l'api github
+  let contributors: ContributorResponse[] = await getGHContributor(
+    "qquentinv",
+    "TheGoodBot",
+  );
+
+  if (channel) {
+    const message =
+      "Merci à toutes les personnes qui ont contribué à ce projet :\n" +
+      contributors.reduce<string>((acc, contributor) => {
+        acc += `- ${contributor.login}\n`;
+        return acc;
+      }, "");
+
+    channel.send(message);
   }
 }
 
