@@ -25,8 +25,6 @@ async function getTwitchAccessToken(): Promise<string> {
   const tokenData = getToken(platform);
   const refreshToken = tokenData?.expires_at;
   const now = Date.now();
-	console.log(refreshToken)
-	console.log(now)
 
 	// Return if token exist and expire date > 5
   if (tokenData && refreshToken > now + 300 * 1000) {
