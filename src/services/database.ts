@@ -1,9 +1,11 @@
 import { DatabaseSync } from "node:sqlite";
 import { config } from "../config.ts";
 import type { Streamer } from "../types/streamer.ts";
+import type { AuthResponse, TokenData } from "../types/twitch";
 
 export const database = new DatabaseSync(config.databasePath);
 
+// Streamers table
 export function getStreamers(): Streamer[] {
   const query = database.prepare(`SELECT * FROM streamers;`);
   return query.all() as Streamer[];
@@ -41,4 +43,29 @@ export function updateLastStream(name: string, lastStream: number): void {
     `UPDATE streamers SET last_stream = (?) WHERE streamers.name = (?)`,
   );
   query.run(lastStream, name);
+}
+
+// Token table
+export function getToken(platform: string): TokenData {
+  const query = database.prepare(
+    `SELECT * FROM token WHERE token.platform = (?)`,
+  );
+  return query.all(platform)[0] as TokenData;
+}
+
+export function addToken(platform: string, tokenInfo: AuthResponse): void {
+  const query = database.prepare(
+    `INSERT INTO token (platform, type, access_token, expires_at) VALUES (?,?,?,?)`,
+  );
+  const expiresAt = Date.now() + tokenInfo.expires_in;
+  query.run(platform, tokenInfo.token_type, tokenInfo.access_token, expiresAt);
+}
+
+export function updateToken(id: number, tokenInfo: AuthResponse): void {
+  const query = database.prepare(
+    `UPDATE token SET token.access_token = (?), token.expires_at = (?)
+WHERE token.id = (?)`,
+  );
+  const expiresAt = Date.now() + tokenInfo.expires_in;
+  query.run(tokenInfo.access_token, expiresAt, id);
 }

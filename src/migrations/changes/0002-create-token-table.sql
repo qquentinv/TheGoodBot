@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS 'token' (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	platform VARCHAR(50),
+	type VARCHAR(50),
+	access_token VARCHAR(255) NOT NULL,
+	expires_at INTEGER NOT NULL
+);

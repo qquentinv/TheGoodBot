@@ -4,6 +4,14 @@ export interface AuthResponse {
   token_type: string;
 }
 
+export interface TokenData {
+  id: number;
+  platform: string;
+  type: string;
+  access_token: string;
+  expires_at: number;
+}
+
 export interface StreamerResponse {
   data: StreamerData[];
   pagination: StreamerPagination;

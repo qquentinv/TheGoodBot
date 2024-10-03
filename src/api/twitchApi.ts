@@ -1,5 +1,11 @@
 import { config } from "../config.ts";
-import { getStreamers, updateLastStream } from "../services/database.ts";
+import {
+  addToken,
+  getStreamers,
+  getToken,
+  updateLastStream,
+  updateToken,
+} from "../services/database.ts";
 import { notifyCategoryChanged } from "../messages/categoryChanged.ts";
 import { notifyStreamStart } from "../messages/launchStream.ts";
 
@@ -12,9 +18,24 @@ import type {
 } from "../types/twitch";
 import type { StreamStatus } from "../types/streamer";
 
-async function getTwitchAccessToken(): Promise<string> {
-  const authUrl = new URL("https://id.twitch.tv/oauth2/token");
+const platform: string = "twitch";
 
+async function getTwitchAccessToken(): Promise<string> {
+  console.log("Get twitch token");
+  const tokenData = getToken(platform);
+  const refreshToken = tokenData?.expires_at;
+  const now = Date.now();
+	console.log(refreshToken)
+	console.log(now)
+
+	// Return if token exist and expire date > 5
+  if (tokenData && refreshToken > now + 300 * 1000) {
+    console.log("Token from database");
+    return tokenData.access_token;
+  }
+
+  const authUrl = new URL("https://id.twitch.tv/oauth2/token");
+  console.log("Token from twitch api");
   const rawResponse = await fetch(authUrl.toString(), {
     method: "POST",
     headers: {
@@ -31,6 +52,15 @@ async function getTwitchAccessToken(): Promise<string> {
   const responseData: AuthResponse = (await rawResponse.json()) as AuthResponse;
   assert.ok(responseData.access_token);
 
+  // Insert or Update token
+  if (!tokenData) {
+    console.log("Add twitch token");
+    addToken(platform, responseData);
+  } else {
+    console.log("Update twitch token");
+    updateToken(tokenData.id, responseData);
+  }
+
   return responseData.access_token;
 }
 
@@ -38,6 +68,7 @@ async function getStreamsOf(
   username: string,
   accessToken: string,
 ): Promise<StreamerData[]> {
+  console.log(`Check if ${username} is on air`);
   const twitchApiUrl = new URL("https://api.twitch.tv/helix/streams");
   twitchApiUrl.searchParams.set("user_login", username);
 
@@ -45,7 +76,6 @@ async function getStreamsOf(
     "Client-ID": config.twitchClientId,
     Authorization: `Bearer ${accessToken}`,
   });
-
   const rawResponse = await fetch(twitchApiUrl.toString(), {
     method: "GET",
     headers,
@@ -65,18 +95,15 @@ export async function checkStreams(
   streamChannelName: string,
   lastStreamTimestamps: { [streamer: string]: number },
 ) {
-  const accessToken = await getTwitchAccessToken();
-  console.log("Connect to Twitch");
+  const token = await getTwitchAccessToken();
   const streamers = getStreamers();
   for (const streamerObj of streamers) {
     const streamer = streamerObj.name;
     let streams = null;
     try {
-      streams = await getStreamsOf(streamer, accessToken);
+      streams = await getStreamsOf(streamer, token);
     } catch {
-      console.log(
-        `Erreur lors de la récupération des données du streamer ${streamer}`,
-      );
+      console.log(`Error on twitch data for ${streamer}`);
     }
 
     const streamData = streams?.[0];

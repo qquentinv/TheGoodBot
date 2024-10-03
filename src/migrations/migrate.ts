@@ -1,10 +1,10 @@
-import { config } from "./../config.ts";
 import { DatabaseSync } from "node:sqlite";
 import fs from "fs";
 import path from "path";
 import process from "process";
 
-const database = new DatabaseSync(config.databasePath);
+const dbPath: string = process.env.DATABASE_PATH || "thegoodbot.db";
+const database = new DatabaseSync(dbPath);
 
 function initializeMigrations() {
   database.exec(`
@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS 'migrations' (
 );
 	`);
 }
+
 function hasMigrationBeenApplied(name: string) {
   const query = database.prepare(
     `SELECT * FROM migrations WHERE migrations.name = (?)`,
@@ -24,19 +25,21 @@ function hasMigrationBeenApplied(name: string) {
   }
   return false;
 }
+
 function insertMigration(name: string) {
   const query = database.prepare(
     `INSERT INTO migrations (name, done_at) VALUES (?, ?)`,
   );
   query.run(name, Date.now());
 }
+
 function applyMigration(content: string) {
   const query = database.prepare(content);
   query.run();
 }
 
 function runMigrations() {
-  const migrationsFolder = "migrations/changes";
+  const migrationsFolder = "src/migrations/changes";
 
   const filesNames = fs
     .readdirSync(migrationsFolder, { withFileTypes: true })
