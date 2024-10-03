@@ -7,7 +7,7 @@ export function notifyCategoryChanged(
   streamChannelName: string,
   streamStatus: any,
 ) {
-  console.log(`notification de live pour ${streamer} : category changed`);
+  console.log(`Stream notification for ${streamer} : category changed`);
   const channel = client.channels.cache.find(
     (ch): ch is TextChannel => (ch as TextChannel).name === streamChannelName,
   );

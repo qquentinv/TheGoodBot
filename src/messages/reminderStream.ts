@@ -3,7 +3,7 @@ import { config } from "../config.ts";
 import { escapeUnderscore } from "./utils.ts";
 
 export function sendReminder(client: Client, streamer: string) {
-  console.log(`reminder de dernier live pour ${streamer}`);
+  console.log(`Remind last stream for ${streamer}`);
   const channel = client.channels.cache.find(
     (ch): ch is TextChannel => (ch as TextChannel).name === config.streamChannelName,
   );

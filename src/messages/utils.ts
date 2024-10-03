@@ -27,7 +27,7 @@ export function seeUsage(client: Client) {
 }
 
 export async function seeContributor(client: Client) {
-  console.log("Affichage des contributors du projet");
+  console.log("Display all contributors");
   const channel = getTextChannel(client);
 
   // récupérer les contributors depuis l'api github

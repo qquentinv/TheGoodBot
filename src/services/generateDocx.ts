@@ -2,7 +2,7 @@ import type { Message, Collection } from "discord.js";
 import docx from "docx";
 
 export async function createWordFile(msg: Message): Promise<void> {
-  console.log("start to generating word file");
+  console.log("Start to generating word file");
   // send channel waiting message
   const response = await msg.channel.send("Generating word file...");
 
@@ -21,7 +21,6 @@ export async function createWordFile(msg: Message): Promise<void> {
 
   // add content message in word
   channelMessages.forEach((msg: Message) => {
-    console.log(msg.content);
     if (!msg.author.bot && msg.content.toLowerCase() !== "!word") {
       content.push(new docx.TextRun({ text: msg.content, break: 1 }));
     }
@@ -48,5 +47,5 @@ export async function createWordFile(msg: Message): Promise<void> {
     content: `Word file OK`,
     files: [{ attachment: buffer, name: "word.docx" }],
   });
-  console.log("generating word file is OK");
+  console.log("Generating word file is OK");
 }

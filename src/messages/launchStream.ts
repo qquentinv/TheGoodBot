@@ -7,7 +7,7 @@ export function notifyStreamStart(
   streamChannelName: string,
   streamStatus: any,
 ) {
-  console.log(`notification de live pour ${streamer} : stream started`);
+  console.log(`Stream notification for ${streamer} : stream started`);
   const channel = client.channels.cache.find(
     (ch): ch is TextChannel => (ch as TextChannel).name === streamChannelName,
   );

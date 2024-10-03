@@ -7,7 +7,7 @@ export function listRegisteredStreamer(
   client: Client,
   listStreamers: Streamer[],
 ): void {
-  console.log(`list all streamers`);
+  console.log(`List all streamers`);
   const channel = client.channels.cache.find(
     (ch): ch is TextChannel =>
       (ch as TextChannel).name === config.streamChannelName,
@@ -23,7 +23,7 @@ export function listRegisteredStreamer(
 }
 
 export function emptyStreamerList(client: Client): void {
-  console.log(`empty streamer list`);
+  console.log(`Empty streamer list`);
   const channel = client.channels.cache.find(
     (ch): ch is TextChannel =>
       (ch as TextChannel).name === config.streamChannelName,
@@ -36,7 +36,7 @@ export function emptyStreamerList(client: Client): void {
 }
 
 export function successfullyAddStreamer(client: Client, name: string): void {
-  console.log(`added streamer ${name}`);
+  console.log(`Added streamer ${name}`);
   const channel = client.channels.cache.find(
     (ch): ch is TextChannel =>
       (ch as TextChannel).name === config.streamChannelName,
@@ -60,7 +60,7 @@ export function alreadyExistAddStreamer(client: Client, name: string): void {
 }
 
 export function successfullyRemoveStreamer(client: Client, name: string): void {
-  console.log(`remove streamer ${name}`);
+  console.log(`Remove streamer ${name}`);
   const channel = client.channels.cache.find(
     (ch): ch is TextChannel =>
       (ch as TextChannel).name === config.streamChannelName,

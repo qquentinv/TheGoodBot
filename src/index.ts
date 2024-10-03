@@ -12,7 +12,7 @@ const client = new Client({
 
 // listener on bot ready
 client.on("ready", () => {
-  console.log("Discord bot is connected");
+  console.log("TheGoodBot is connected");
   startBot(client);
 });
 
