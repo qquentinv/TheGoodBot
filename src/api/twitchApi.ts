@@ -26,7 +26,7 @@ async function getTwitchAccessToken(): Promise<string> {
   const refreshToken = tokenData?.expires_at;
   const now = Date.now();
 
-	// Return if token exist and expire date > 5
+  // Return if token exist and expire date > 5
   if (tokenData && refreshToken > now + 300 * 1000) {
     console.log("Token from database");
     return tokenData.access_token;
@@ -85,6 +85,29 @@ async function getStreamsOf(
   assert.equal(Array.isArray(response.data), true);
 
   return response.data;
+}
+
+export async function checkChannel(name: string) {
+  const token = await getTwitchAccessToken();
+  try {
+    const twitchApiUrl = new URL("https://api.twitch.tv/helix/users");
+    twitchApiUrl.searchParams.set("login", name);
+
+    const headers = new Headers({
+      "Client-ID": config.twitchClientId,
+      Authorization: `Bearer ${token}`,
+    });
+    const rawResponse = await fetch(twitchApiUrl.toString(), {
+      method: "GET",
+      headers,
+    });
+
+    const response = await rawResponse.json();
+    return response?.data?.length > 0;
+  } catch (error) {
+    console.error("Error on twitch channel:", error);
+    return false;
+  }
 }
 
 export async function checkStreams(
