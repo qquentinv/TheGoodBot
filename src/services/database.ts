@@ -63,8 +63,7 @@ export function addToken(platform: string, tokenInfo: AuthResponse): void {
 
 export function updateToken(id: number, tokenInfo: AuthResponse): void {
   const query = database.prepare(
-    `UPDATE token SET token.access_token = (?), token.expires_at = (?)
-WHERE token.id = (?)`,
+    `UPDATE token SET access_token = (?), expires_at = (?) WHERE id = (?)`,
   );
   const expiresAt = Date.now() + tokenInfo.expires_in;
   query.run(tokenInfo.access_token, expiresAt, id);
