@@ -38,7 +38,7 @@ export async function handleMessage(
       streamersCommand(client);
       break;
     case "!add":
-      addCommand(client, stdin);
+      await addCommand(client, stdin);
       break;
     case "!delete":
       deleteCommand(client, stdin);

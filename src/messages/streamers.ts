@@ -59,6 +59,18 @@ export function alreadyExistAddStreamer(client: Client, name: string): void {
   }
 }
 
+export function invalidAddStreamer(client: Client, name: string): void {
+  const channel = client.channels.cache.find(
+    (ch): ch is TextChannel =>
+      (ch as TextChannel).name === config.streamChannelName,
+  );
+  if (channel) {
+    channel.send(
+      `❗ La chaine twitch de _${escapeUnderscore(name)}_ n'existe pas.`,
+    );
+  }
+}
+
 export function successfullyRemoveStreamer(client: Client, name: string): void {
   console.log(`Remove streamer ${name}`);
   const channel = client.channels.cache.find(
