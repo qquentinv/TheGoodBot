@@ -87,9 +87,9 @@ async function getStreamsOf(
   return response.data;
 }
 
-export async function checkChannel(name: string) {
-  const token = await getTwitchAccessToken();
+export async function checkIfChannelExist(name: string): Promise<boolean> {
   try {
+    const token = await getTwitchAccessToken();
     const twitchApiUrl = new URL("https://api.twitch.tv/helix/users");
     twitchApiUrl.searchParams.set("login", name);
 
@@ -103,7 +103,7 @@ export async function checkChannel(name: string) {
     });
 
     const response = await rawResponse.json();
-    return response?.data?.length > 0;
+    return (response?.data ?? []).length > 0;
   } catch (error) {
     console.error("Error on twitch channel:", error);
     return false;

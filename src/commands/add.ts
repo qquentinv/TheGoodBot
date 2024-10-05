@@ -1,5 +1,5 @@
 import type { Client } from "discord.js";
-import { checkChannel } from "../api/twitchApi.ts";
+import { checkIfChannelExist } from "../api/twitchApi.ts";
 import {
   alreadyExistAddStreamer,
   invalidAddStreamer,
@@ -21,9 +21,9 @@ export async function addCommand(
   }
 
   if (!isStreamerExist(stdin[1])) {
-    if (!(await checkChannel(stdin[1]))) {
+    if (!(await checkIfChannelExist(stdin[1]))) {
       invalidAddStreamer(client, stdin[1]);
-			return;
+      return;
     }
     addStreamer(stdin[1]);
     successfullyAddStreamer(client, stdin[1]);
