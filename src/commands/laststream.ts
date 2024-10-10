@@ -1,17 +1,17 @@
-import type { Client } from "discord.js";
+import type { CommandInteraction } from "discord.js";
 import { lastStream, notExistStreamer } from "../messages/streamers.ts";
-import { wrongUsage } from "../messages/utils.ts";
 import { getStreamer, isStreamerExist } from "../services/database.ts";
 
-export function laststreamCommand(client: Client, stdin: any[]): void {
-  if (stdin.length == 1) {
-    wrongUsage(client, stdin[0]);
-    return;
+export async function laststreamCommand(
+  interaction: CommandInteraction,
+): Promise<void> {
+  const streamer = interaction.options.getString("streamer");
+
+  if (!isStreamerExist(streamer)) {
+    await notExistStreamer(interaction, streamer);
   }
-  if (isStreamerExist(stdin[1])) {
-    let streamer = getStreamer(stdin[1]);
-    lastStream(client, streamer.name, streamer.last_stream);
-  } else {
-    notExistStreamer(client, stdin[1]);
-  }
+
+  let streamerDb = getStreamer(streamer);
+  console.log(streamerDb);
+  await lastStream(interaction, streamerDb.name, streamerDb.last_stream);
 }

@@ -2,20 +2,22 @@ import assert from "node:assert/strict";
 
 function getConfig() {
   const discordToken = process.env.DISCORD_TOKEN;
+  const discordApplicationId = process.env.DISCORD_APPLICATION_ID;
   const twitchClientId = process.env.TWITCH_CLIENT_ID;
   const twitchClientSecret = process.env.TWITCH_CLIENT_SECRET;
   const streamChannelName = process.env.STREAM_CHANNEL_NAME;
   const twitchRefreshTime = Number.parseInt(
-    process.env.TWITCH_REFRESH_TIME ?? '120000',
+    process.env.TWITCH_REFRESH_TIME ?? "120000",
     10,
   );
   const reminderIntervalDays = Number.parseInt(
-    process.env.REMINDER_INTERVAL_DAYS ?? '7',
+    process.env.REMINDER_INTERVAL_DAYS ?? "7",
     10,
   );
   const databasePath = process.env.DATABASE_PATH;
 
   assert.ok(discordToken, "`DISCORD_TOKEN` doit être défini");
+  assert.ok(discordApplicationId, "`DISCORD_APPLICATION_ID` doit être défini");
   assert.ok(twitchClientId, "`TWITCH_CLIENT_ID` doit être défini");
   assert.ok(twitchClientSecret, "`TWITCH_CLIENT_SECRET` doit être défini");
   assert.ok(streamChannelName, "`STREAM_CHANNEL_NAME` doit être défini");
@@ -37,6 +39,7 @@ function getConfig() {
 
   return {
     discordToken,
+    discordApplicationId,
     twitchClientId,
     twitchClientSecret,
     streamChannelName,
