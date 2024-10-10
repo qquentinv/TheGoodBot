@@ -1,15 +1,17 @@
-import type { Client } from "discord.js";
+import type { CommandInteraction } from "discord.js";
 import {
   emptyStreamerList,
   listRegisteredStreamer,
 } from "../messages/streamers.ts";
 import { getStreamers } from "../services/database.ts";
 
-export function streamersCommand(client: Client): void {
+export async function streamersCommand(
+  interaction: CommandInteraction,
+): Promise<void> {
   let streamers = getStreamers();
   if (streamers.length > 0) {
-    listRegisteredStreamer(client, streamers);
+    await listRegisteredStreamer(interaction, streamers);
   } else {
-    emptyStreamerList(client);
+    await emptyStreamerList(interaction);
   }
 }

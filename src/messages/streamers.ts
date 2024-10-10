@@ -1,109 +1,82 @@
-import type { Client, TextChannel } from "discord.js";
-import { config } from "../config.ts";
+import type { CommandInteraction } from "discord.js";
 import { escapeUnderscore } from "./utils.ts";
 import type { Streamer } from "../types/streamer.ts";
 
-export function listRegisteredStreamer(
-  client: Client,
+export async function listRegisteredStreamer(
+  interaction: CommandInteraction,
   listStreamers: Streamer[],
-): void {
+): Promise<void> {
   console.log(`List all streamers`);
-  const channel = client.channels.cache.find(
-    (ch): ch is TextChannel =>
-      (ch as TextChannel).name === config.streamChannelName,
+  const streamers = listStreamers.reduce((acc, current) => {
+    return `${acc}\n- ${escapeUnderscore(current.name)} - https://www.twitch.tv/${current.name}`;
+  }, "");
+  await interaction.reply(
+    `Les streamers enregistrés sont les suivants : \n${streamers}`,
   );
-  if (channel) {
-    const streamers = listStreamers.reduce((acc, current) => {
-      return `${acc}\n- ${escapeUnderscore(current.name)} - https://www.twitch.tv/${current.name}`;
-    }, "");
-    channel.send(
-      `Les streamers enregistrés sont les suivants : \n${streamers}`,
-    );
-  }
 }
 
-export function emptyStreamerList(client: Client): void {
+export async function emptyStreamerList(
+  interaction: CommandInteraction,
+): Promise<void> {
   console.log(`Empty streamer list`);
-  const channel = client.channels.cache.find(
-    (ch): ch is TextChannel =>
-      (ch as TextChannel).name === config.streamChannelName,
+  await interaction.reply(
+    "Aucun streamer n'a été renseigné pour le moment. Utilisez la commande `/add` pour en ajouter.",
   );
-  if (channel) {
-    channel.send(
-      "Aucun streamer n'a été renseigné pour le moment. Utilisez la commande `!add` pour en ajouter.",
-    );
-  }
 }
 
-export function successfullyAddStreamer(client: Client, name: string): void {
+export async function successfullyAddStreamer(
+  interaction: CommandInteraction,
+  name: string,
+): Promise<void> {
   console.log(`Added streamer ${name}`);
-  const channel = client.channels.cache.find(
-    (ch): ch is TextChannel =>
-      (ch as TextChannel).name === config.streamChannelName,
+  await interaction.reply(
+    `✅  Les streams de _${escapeUnderscore(name)}_ sont désormais suivis.`,
   );
-  if (channel) {
-    channel.send(
-      `✅  Les streams de _${escapeUnderscore(name)}_ sont désormais suivis.`,
-    );
-  }
-}
-export function alreadyExistAddStreamer(client: Client, name: string): void {
-  const channel = client.channels.cache.find(
-    (ch): ch is TextChannel =>
-      (ch as TextChannel).name === config.streamChannelName,
-  );
-  if (channel) {
-    channel.send(
-      `❗ Les streams de _${escapeUnderscore(name)}_ sont déjà suivis.`,
-    );
-  }
 }
 
-export function invalidAddStreamer(client: Client, name: string): void {
-  const channel = client.channels.cache.find(
-    (ch): ch is TextChannel =>
-      (ch as TextChannel).name === config.streamChannelName,
+export async function alreadyExistAddStreamer(
+  interaction: CommandInteraction,
+  name: string,
+): Promise<void> {
+  await interaction.reply(
+    `❗ Les streams de _${escapeUnderscore(name)}_ sont déjà suivis.`,
   );
-  if (channel) {
-    channel.send(
-      `❗ La chaine twitch de _${escapeUnderscore(name)}_ n'existe pas.`,
-    );
-  }
 }
 
-export function successfullyRemoveStreamer(client: Client, name: string): void {
+export async function invalidAddStreamer(
+  interaction: CommandInteraction,
+  name: string,
+): Promise<void> {
+  await interaction.reply(
+    `❗ La chaine twitch de _${escapeUnderscore(name)}_ n'existe pas.`,
+  );
+}
+
+export async function successfullyRemoveStreamer(
+  interaction: CommandInteraction,
+  name: string,
+): Promise<void> {
   console.log(`Remove streamer ${name}`);
-  const channel = client.channels.cache.find(
-    (ch): ch is TextChannel =>
-      (ch as TextChannel).name === config.streamChannelName,
+  await interaction.reply(
+    `❌  Les streams de _${escapeUnderscore(name)}_ ne sont plus suivis.`,
   );
-  if (channel) {
-    channel.send(
-      `❌  Les streams de _${escapeUnderscore(name)}_ ne sont plus suivis.`,
-    );
-  }
 }
-export function notExistStreamer(client: Client, name: string): void {
-  const channel = client.channels.cache.find(
-    (ch): ch is TextChannel =>
-      (ch as TextChannel).name === config.streamChannelName,
+export async function notExistStreamer(
+  interaction: CommandInteraction,
+  name: string,
+): Promise<void> {
+  await interaction.reply(
+    `❗ Les streams de _${escapeUnderscore(name)}_ ne sont pas suivis.`,
   );
-  if (channel) {
-    channel.send(
-      `❗ Les streams de _${escapeUnderscore(name)}_ ne sont pas suivis.`,
-    );
-  }
 }
 
-export function lastStream(client: Client, name: string, date: Date) {
-  const channel = client.channels.cache.find(
-    (ch): ch is TextChannel =>
-      (ch as TextChannel).name === config.streamChannelName,
+export async function lastStream(
+  interaction: CommandInteraction,
+  name: string,
+  date: Date,
+) {
+  const formatedDate = new Date(date).toLocaleDateString("fr-FR");
+  await interaction.reply(
+    `📆 Le dernier stream de _${escapeUnderscore(name)}_ date du ${formatedDate}`,
   );
-  if (channel) {
-    const formatedDate = new Date(date).toLocaleDateString("fr-FR");
-    channel.send(
-      `📆 Le dernier stream de _${escapeUnderscore(name)}_ date du ${formatedDate}`,
-    );
-  }
 }

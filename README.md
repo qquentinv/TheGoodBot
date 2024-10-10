@@ -26,12 +26,12 @@ Ce projet a pour but de créer un bot discord qui a les fonctionnalités suivant
 
 ## Commandes
 
-- !help
-- !streamers (list all stream we follow)
-- !add (add a stream to follow)
-- !delete (unfollow a stream)
-- !laststream (date of the last stream)
-- !word (generate docx)
+- /help
+- /streamers (list all stream we follow)
+- /add (add a stream to follow)
+- /delete (unfollow a stream)
+- /laststream (date of the last stream)
+- /word (generate docx)
 
 ## Pré-requis
 

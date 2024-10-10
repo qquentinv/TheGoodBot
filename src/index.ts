@@ -1,6 +1,7 @@
-import { Client, GatewayIntentBits } from "discord.js";
+import { Client, GatewayIntentBits, CommandInteraction } from "discord.js";
 import { config } from "./config.ts";
-import { handleMessage, startBot } from "./services/bot.ts";
+import { startBot } from "./services/bot.ts";
+import { registerCommand, launchCommand } from "./services/command.ts";
 
 const client = new Client({
   intents: [
@@ -11,14 +12,15 @@ const client = new Client({
 });
 
 // listener on bot ready
-client.on("ready", () => {
+client.on("ready", async () => {
   console.log("TheGoodBot is connected");
+  await registerCommand();
   startBot(client);
 });
 
 // listener on message
-client.on("messageCreate", async (msg) => {
-  handleMessage(client, msg);
+client.on("interactionCreate", async (interaction: CommandInteraction) => {
+  launchCommand(interaction);
 });
 
 client.login(config.discordToken);
