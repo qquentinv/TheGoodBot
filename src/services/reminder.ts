@@ -7,7 +7,7 @@ const msInADay = 24 * 60 * 60 * 1000;
 
 export async function checkForReminders(
   client: Client,
-  lastStreamTimestamps: { [x: string]: number; },
+  lastStreamTimestamps: { [x: string]: number },
 ) {
   const now = Date.now();
 

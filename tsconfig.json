@@ -12,8 +12,9 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
-    "module": "preserve",
+    "module": "ESNext",
     "noEmit": true,
+		"moduleResolution": "node",
     "lib": [
       "es2022"
     ]

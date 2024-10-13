@@ -17,12 +17,12 @@
   "author": "qquentinv",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^14.15.0",
+    "discord.js": "^14.16.3",
     "docx": "^7.7.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.10.0",
-    "@types/node": "^22.5.4",
+    "@types/node": "^22.7.5",
     "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",

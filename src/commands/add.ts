@@ -1,33 +1,30 @@
-import type { Client } from "discord.js";
+import type { CommandInteraction } from "discord.js";
 import { checkIfChannelExist } from "../api/twitchApi.ts";
 import {
   alreadyExistAddStreamer,
   invalidAddStreamer,
   successfullyAddStreamer,
 } from "../messages/streamers.ts";
-import { wrongUsage } from "../messages/utils.ts";
 import { addStreamer, isStreamerExist } from "../services/database.ts";
 
 export async function addCommand(
-  client: Client,
-  stdin: string[],
+  interaction: CommandInteraction,
 ): Promise<void> {
-  if (stdin.length == 1 && stdin[0]) {
-    wrongUsage(client, stdin[0]);
-    return;
-  }
-  if (!stdin[1]) {
+  const streamer = interaction.options.getString("streamer");
+
+  // Check if streamer exist in db
+  if (isStreamerExist(streamer)) {
+    await alreadyExistAddStreamer(interaction, streamer);
     return;
   }
 
-  if (!isStreamerExist(stdin[1])) {
-    if (!(await checkIfChannelExist(stdin[1]))) {
-      invalidAddStreamer(client, stdin[1]);
-      return;
-    }
-    addStreamer(stdin[1]);
-    successfullyAddStreamer(client, stdin[1]);
-  } else {
-    alreadyExistAddStreamer(client, stdin[1]);
+  // Check if streamer exist on twich
+  if (!(await checkIfChannelExist(streamer))) {
+    await invalidAddStreamer(interaction, streamer);
+    return;
   }
+
+  // Add streamer in db
+  addStreamer(streamer);
+  await successfullyAddStreamer(interaction, streamer);
 }
