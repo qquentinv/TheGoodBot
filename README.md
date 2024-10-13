@@ -27,6 +27,7 @@ Ce projet a pour but de créer un bot discord qui a les fonctionnalités suivant
 ## Commandes
 
 - /help
+- /contributor (list all GH Contributor)
 - /streamers (list all stream we follow)
 - /add (add a stream to follow)
 - /delete (unfollow a stream)

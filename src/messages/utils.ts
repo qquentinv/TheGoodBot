@@ -6,6 +6,7 @@ export async function seeUsage(interaction: CommandInteraction) {
   await interaction.reply(`
 💻 Liste des commandes disponibles :
 * \`/help\` - Voir l'ensemble des commandes.
+* \`/contributor\` - Voir tous les contributeurs github.
 * \`/streamers\` - Voir tous les streams suivies.
 * \`/add <STREAMER>\` - Ajouter un stream à suivre.
 * \`/delete <STREAMER>\` - Supprimer un stream suivie.
