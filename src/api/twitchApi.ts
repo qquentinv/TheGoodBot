@@ -114,7 +114,6 @@ export async function checkStreams(
   client: Client,
   streamStatus: StreamStatus,
   streamChannelName: string,
-  lastStreamTimestamps: { [streamer: string]: number },
 ) {
   const token = await getTwitchAccessToken();
   const streamers = getStreamers();
@@ -129,7 +128,6 @@ export async function checkStreams(
 
     const streamData = streams?.[0];
     if (streamData) {
-      lastStreamTimestamps[streamer] = Date.now();
       updateLastStream(streamer, Date.now());
       if (!streamStatus[streamer]) {
         streamStatus[streamer] = true;
