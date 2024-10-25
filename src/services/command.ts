@@ -82,6 +82,9 @@ export async function registerCommand(): Promise<void> {
 export async function launchCommand(
   interaction: CommandInteraction,
 ): Promise<void> {
+  console.log(
+    `User @${interaction.user.username} launch ${interaction.commandName} command`,
+  );
   if (!interaction.isCommand()) return;
 
   switch (interaction.commandName) {
