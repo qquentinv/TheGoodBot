@@ -11,6 +11,14 @@ const client = new Client({
   ],
 });
 
+// Add datetime in log
+const originalLog = console.log;
+
+console.log = (...args) => {
+  const timestamp = new Date().toISOString();
+  originalLog(`[${timestamp}]`, ...args);
+};
+
 // listener on bot ready
 client.on("ready", async () => {
   console.log("TheGoodBot is connected");
